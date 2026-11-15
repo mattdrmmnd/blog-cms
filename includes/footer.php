@@ -32,7 +32,7 @@
         <p class="col-start-2 text-center text-xlight-purple footer:absolute footer:inset-x-0 footer:bottom-8">Matt The Dev | <?= date('Y') ?></p>
 
         <a href="https://optmzd.net" target="_blank" rel="noopener noreferrer" class="col-start-3 justify-self-end transition-colors hover:text-orange-200 text-xs mt-1 footer:mt-0">Powered by OPTMZD</a>
-        <p class="col-start-3 text-white text-xs justify-self-end pb-2 footer:pb-0">v0.9.0</p>
+        <p class="col-start-3 text-white text-xs justify-self-end pb-2 footer:pb-0">v0.1.0</p>
       </div>
 
     </footer>
