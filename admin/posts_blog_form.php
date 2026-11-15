@@ -91,9 +91,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         $hasImage = $imageError === UPLOAD_ERR_OK;
-        $mimeType = '';
 
-        $willHaveImage = $hasImage || $currentImage;
+        $removeImage = isset($_POST["remove_image"]) && $currentImage && !$hasImage;
+
+        $mimeType = '';
+ 
+        $willHaveImage = $hasImage || ($currentImage && !$removeImage);
 
         if ($hasImage) {
             $mimeType = new finfo(FILEINFO_MIME_TYPE)->file($image["tmp_name"]);
@@ -135,13 +138,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             if (!$errors) {
                 $altToSave = $willHaveImage ? $imageAlt : null;
-                $imageToSave = $hasImage ? $fileName : $currentImage;
+                // New upload → new file name, Remove ticked → null, otherwise keep the current image
+                $imageToSave = $hasImage ? $fileName : ($removeImage ? null : $currentImage);
                 $captionToSave = ($willHaveImage && $imageCaption !== '') ? $imageCaption : null;
 
                 if ($isEdit) {
                     update_blog_post($pdo, $id, $title, $body, $status, $imageToSave, $altToSave, $captionToSave);
                     
-                    if ($hasImage && $currentImage) {
+                    if (($hasImage || $removeImage) && $currentImage) {
                         $imagePath = $uploadDir . $currentImage;
                         if (is_file($imagePath)) {
                             unlink($imagePath);
@@ -215,6 +219,18 @@ require __DIR__ . '/../includes/head.php';
 
                                     <p class="font-medium text-gray-300 mt-2">Current image:</p>
                                     <img src="<?= BASE_URL ?>public/uploads/blog/<?= htmlspecialchars($currentImage) ?>" alt="<?= htmlspecialchars($post["featured_image_alt"] ?? '') ?>" class="max-h-40 w-auto rounded-sm self-start">
+                                    
+                                    <div>
+                                        <label class="flex flex-row items-center gap-2 text-sm tracking-wider cursor-pointer pb-4">
+                                            <input
+                                                type="checkbox"
+                                                name="remove_image"
+                                                value="1"
+                                                class="h-5 w-5 shrink-0 appearance-none rounded-sm border border-white bg-white bg-center bg-no-repeat bg-contain checked:bg-light-purple cursor-pointer checked:border-0 checked:bg-check focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-xlight-purple"
+                                            >
+                                            Remove image
+                                        </label>
+                                    </div>
 
                                 <?php endif; ?>
 
