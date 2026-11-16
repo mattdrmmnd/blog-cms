@@ -32,12 +32,19 @@ require __DIR__ . '/includes/head.php';
 
         <h2 class="font-semibold text-xl text-center text-xlight-purple tracking-wider">Visit Me:</h2>
 
-        <a href="https://github.com/mattdrmmnd" target="_blank" rel="noopener noreferrer" aria-label="Visit Matt on GitHub"><img src="<?= BASE_URL ?>public/images/github_logo.svg" class="h-8 hover:opacity-50" /></a>
+        <a href="https://github.com/mattdrmmnd" target="_blank" rel="noopener noreferrer" aria-label="Visit Matt on GitHub">
+          <img src="<?= BASE_URL ?>public/images/github_logo.svg" class="h-8 hover:opacity-50" />
+        </a>
 
-        <a href="https://dev.to/mattdrmmnd" target="_blank" rel="noopener noreferrer" aria-label="Visit Matt on The Dev Community"><img src="<?= BASE_URL ?>public/images/dev_logo.svg" class="h-8 hover:opacity-50" /></a>
-
-        <a href="https://www.linkedin.com/in/mattdrummond" target="_blank" rel="noopener noreferrer" aria-label="Visit Matt on Linkedin"><img src="<?= BASE_URL ?>public/images/linkedin_logo.webp" class="h-8 hover:opacity-50" /></a>
+        <a href="https://x.com/itsmattdev" target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-orange-200 text-xs" aria-label="Visit Matt's X profile.">
+          <img src="<?= BASE_URL ?>public/images/x_logo.svg" alt="" class="h-8 hover:opacity-50" />
+        </a>
     
+        <a href="https://www.linkedin.com/in/mattdrummond" target="_blank" rel="noopener noreferrer" aria-label="Visit Matt on Linkedin">
+          <img src="<?= BASE_URL ?>public/images/linkedin_logo.webp" class="h-8 hover:opacity-50" />
+        </a>
+
+       
       </div>
     </section>
 
