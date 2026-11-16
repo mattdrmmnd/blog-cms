@@ -25,12 +25,12 @@ Built with help from Claude Code, which I used for explanations, planning and co
   - [x] Database table
   - [x] Admin list with trash, restore and permanent delete
   - [x] New post saving (draft or publish), with a session keep-alive while typing
-  - [x] Featured image upload (type and size checks, random file names, the old file deleted when it's replaced or the post is deleted)
-  - [ ] Edit form (in progress)
+  - [x] Featured image upload (type and size checks, random file names, the old file deleted when it's replaced, removed or the post is deleted)
+  - [x] Edit form, merged with the new post form
     - [x] Load a post into the form, update its text and status
-    - [x] Keep or replace the featured image
-    - [ ] Remove the featured image
-    - [ ] Save draft returns to the edit form
+    - [x] Keep, replace or remove the featured image
+    - [x] Save draft returns to the edit form, Publish goes to the list
+    - [x] A flash message for each button (saved, published, updated, unpublished)
   - [ ] Public post pages
 
 ### Planned
