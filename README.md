@@ -80,7 +80,11 @@ width="700">
 
 &nbsp;
 
-<img src="public/images/admin_posts_blog_new.jpg" alt="Admin new/edit blog post form" width="700">
+<img src="public/images/admin_posts_blog_form.jpg" alt="Admin blog post form new" width="700">
+
+&nbsp;
+
+<img src="public/images/admin_posts_blog_edit.jpg" alt="Admin blog post form edit" width="700">
 
 &nbsp;
 
@@ -88,7 +92,7 @@ width="700">
 
 &nbsp;
 
-<img src="public/images/admin_users_add_new.jpg" alt="Admin add new user page" width="700">
+<img src="public/images/admin_edit_user.jpg" alt="Admin add new user page" width="700">
 
 &nbsp;
 
