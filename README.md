@@ -92,7 +92,7 @@ width="700">
 
 &nbsp;
 
-<img src="public/images/admin_edit_user.jpg" alt="Admin add new user page" width="700">
+<img src="public/images/admin_edit_user.jpg" alt="Admin edit user page" width="700">
 
 &nbsp;
 
