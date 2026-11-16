@@ -144,6 +144,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 if ($isEdit) {
                     update_blog_post($pdo, $id, $title, $body, $status, $imageToSave, $altToSave, $captionToSave);
+
+                    $postId = $id;
                     
                     if (($hasImage || $removeImage) && $currentImage) {
                         $imagePath = $uploadDir . $currentImage;
@@ -152,12 +154,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         }       
                     }
                 } else {
-                    create_blog_post($pdo, (int) $_SESSION["user_id"], $title, $body, $status, $fileName, $altToSave, $captionToSave);
+                    $postId = create_blog_post($pdo, (int) $_SESSION["user_id"], $title, $body, $status, $fileName, $altToSave, $captionToSave);  
                 }
                 
-                $_SESSION["posts_message"] = $status === 'draft' ? 'Draft saved.' : 'Post published.';
+                if ($isPublished && $status === 'draft') {
+                    $_SESSION["posts_message"] = 'Post unpublished.';
 
-                header('Location: ' . BASE_URL . 'admin/posts_blog.php');
+                } elseif ($isPublished && $status === 'published') {
+                    $_SESSION["posts_message"] = 'Post updated.';
+
+                } elseif ($status === 'published') {
+                    $_SESSION["posts_message"] = 'Post published.';
+
+                } else {
+                    $_SESSION["posts_message"] = 'Draft saved.';
+                }
+
+                if ($status === 'draft') {
+                    header('Location: ' . BASE_URL . 'admin/posts_blog_form.php?id=' . $postId);
+                } else {
+                    header('Location: ' . BASE_URL . 'admin/posts_blog.php'); 
+                }
                 die();
             }    
         }  
@@ -187,87 +204,94 @@ require __DIR__ . '/../includes/head.php';
                     </a>
                 </div>
 
-            
+                
 
-                    <!-- Form -->
-                    <section class="flex flex-col gap-3 bg-black/50 rounded-2xl p-7 overflow-x-auto">
+                <!-- Form -->
+                <section class="flex flex-col gap-3 bg-black/50 rounded-2xl p-7 overflow-x-auto">
 
-                            <form action="<?= htmlspecialchars($formAction) ?>" method="post" data-keep-alive="Your session has expired. Copy your post before saving." enctype="multipart/form-data" class="flex flex-col gap-3 tracking-wider">
+                    <form action="<?= htmlspecialchars($formAction) ?>" method="post" data-keep-alive="Your session has expired. Copy your post before saving." enctype="multipart/form-data" class="flex flex-col gap-3 tracking-wider">
 
-                                <?php csrf_field(); ?>
+                        <?php csrf_field(); ?>
 
-                                <div class="flex justify-between items-start gap-4 min-h-10">
-                                    <?php if ($errors): ?>
-                                        
-                                        <ul role="alert" class="text-red-400 font-semibold text-sm tracking-wider">
-                                            <?php foreach ($errors as $error): ?>
-                                                <li><?= htmlspecialchars($error) ?></li>
-                                            <?php endforeach; ?>    
-                                        </ul>
-                                        
-                                    <?php endif; ?>    
-                       
-                                    <button name="status" value="draft" class="ml-auto text-white hover:text-xlight-purple tracking-wider cursor-pointer"><?= $isPublished ? 'Unpublish' : 'Save draft' ?></button>  
-                                </div> 
+                        <div class="flex justify-between items-start gap-4 min-h-10">
 
-                                <!-- Title Field -->
-                                <label for="title" class="font-medium text-gray-300">Title:</label>
-                                <input type="text" id="title" name="title" placeholder="Enter article title..." value="<?= htmlspecialchars($title) ?>" class="w-full max-w-120 border border-amber-50 bg-white text-gray-500 p-2 rounded-sm focus:outline-none focus:ring-1 focus:ring-xlight-purple">  
-                                
-                                <!-- Current Image (edit only) -->
-                                <?php if ($currentImage): ?>
+                        <?php 
+                            if (isset($_SESSION["posts_message"])) {
+                                echo '<p class="text-sm text-orange-200 tracking-wider" role="status">' . htmlspecialchars($_SESSION["posts_message"]) . '</p>';
 
-                                    <p class="font-medium text-gray-300 mt-2">Current image:</p>
-                                    <img src="<?= BASE_URL ?>public/uploads/blog/<?= htmlspecialchars($currentImage) ?>" alt="<?= htmlspecialchars($post["featured_image_alt"] ?? '') ?>" class="max-h-40 w-auto rounded-sm self-start">
-                                    
-                                    <div>
-                                        <label class="flex flex-row items-center gap-2 text-sm tracking-wider cursor-pointer pb-4">
-                                            <input
-                                                type="checkbox"
-                                                name="remove_image"
-                                                value="1"
-                                                class="h-5 w-5 shrink-0 appearance-none rounded-sm border border-white bg-white bg-center bg-no-repeat bg-contain checked:bg-light-purple cursor-pointer checked:border-0 checked:bg-check focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-xlight-purple"
-                                            >
-                                            Remove image
-                                        </label>
-                                    </div>
+                                unset($_SESSION["posts_message"]);
+                            }
+                        ?>
 
-                                <?php endif; ?>
-
-                                <!-- Image Upload Field -->
-                                <label for="image-upload" class="font-medium text-gray-300 mt-2">Choose a featured image:</label>
-
-                                <input type="file" id="image-upload" name="featured_image" accept="image/png, image/jpeg, image/webp"
-                                        class="self-start text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-gray-600 file:text-white file:hover:bg-gray-500 file:cursor-pointer file:transition-colors">
-
-                                <!-- Image Alt Text Field -->
-                                <label for="featured-image-alt" class="font-medium text-gray-300 mt-2">Image alt text:</label>
-                                <input type="text" id="featured-image-alt" name="featured_image_alt" maxlength="255" placeholder="Describe the image for screen readers..." value="<?= htmlspecialchars($imageAlt) ?>" class="w-full max-w-120 border border-amber-50 bg-white text-gray-500 p-2 rounded-sm focus:outline-none focus:ring-1 focus:ring-xlight-purple">
-
-                                <!-- Image Caption Field -->
-                                <label for="featured-image-caption" class="font-medium text-gray-300 mt-2">Image caption (optional):</label>
-                                <input type="text" id="featured-image-caption" name="featured_image_caption" maxlength="255" placeholder="Shown below the image..." value="<?= htmlspecialchars($imageCaption) ?>" class="w-full max-w-120 border border-amber-50 bg-white text-gray-500 p-2 rounded-sm focus:outline-none focus:ring-1 focus:ring-xlight-purple">
-
-                                <!-- Blog Body Text Field -->
-                                <label for="body" class="font-medium text-gray-300 mt-2">Body Content:</label>
-                                <textarea id="body" name="body" rows="10" placeholder="Write your blog post content here..." 
-                                            class="border border-amber-50 bg-white text-gray-500 p-2 rounded-sm focus:outline-none focus:ring-1 focus:ring-xlight-purple resize-y w-full"><?= htmlspecialchars($body) ?></textarea>       
-                                
-                                
-
-                                <div class="flex flex-row justify-center sm:justify-end items-center gap-5 mt-3">
-                                    <button type="button" disabled class="text-white hover:text-xlight-purple tracking-wider cursor-pointer">Preview
-                                    </button>  
-                                    
-
-                                    <button name="status" value="published" class="bg-light-purple hover:bg-dark-purple transition w-50 p-2 pb-3 rounded-full cursor-pointer tracking-wider">
-                                        <?= $isPublished ? 'Update' : 'Publish' ?>
-                                    </button>  
-                                </div>  
-                            </form>
+                        <?php if ($errors): ?>
                             
+                            <ul role="alert" class="text-red-400 font-semibold text-sm tracking-wider">
+                                <?php foreach ($errors as $error): ?>
+                                    <li><?= htmlspecialchars($error) ?></li>
+                                <?php endforeach; ?>    
+                            </ul>
                             
-                    </section>
+                        <?php endif; ?>    
+                
+                            <button name="status" value="draft" class="ml-auto text-white hover:text-xlight-purple tracking-wider cursor-pointer"><?= $isPublished ? 'Unpublish' : 'Save draft' ?></button>  
+                        </div> 
+
+                        <!-- Title Field -->
+                        <label for="title" class="font-medium text-gray-300">Title:</label>
+                        <input type="text" id="title" name="title" placeholder="Enter article title..." value="<?= htmlspecialchars($title) ?>" class="w-full max-w-120 border border-amber-50 bg-white text-gray-500 p-2 rounded-sm focus:outline-none focus:ring-1 focus:ring-xlight-purple">  
+                        
+                        <!-- Current Image (edit only) -->
+                        <?php if ($currentImage): ?>
+
+                            <p class="font-medium text-gray-300 mt-2">Current image:</p>
+                            <img src="<?= BASE_URL ?>public/uploads/blog/<?= htmlspecialchars($currentImage) ?>" alt="<?= htmlspecialchars($post["featured_image_alt"] ?? '') ?>" class="max-h-40 w-auto rounded-sm self-start">
+                            
+                            <div>
+                                <label class="flex flex-row items-center gap-2 text-sm tracking-wider cursor-pointer pb-4">
+                                    <input
+                                        type="checkbox"
+                                        name="remove_image"
+                                        value="1"
+                                        class="h-5 w-5 shrink-0 appearance-none rounded-sm border border-white bg-white bg-center bg-no-repeat bg-contain checked:bg-light-purple cursor-pointer checked:border-0 checked:bg-check focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-xlight-purple"
+                                    >
+                                    Remove image
+                                </label>
+                            </div>
+
+                        <?php endif; ?>
+
+                        <!-- Image Upload Field -->
+                        <label for="image-upload" class="font-medium text-gray-300 mt-2">Choose a featured image:</label>
+
+                        <input type="file" id="image-upload" name="featured_image" accept="image/png, image/jpeg, image/webp"
+                                class="self-start text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-semibold file:bg-gray-600 file:text-white file:hover:bg-gray-500 file:cursor-pointer file:transition-colors">
+
+                        <!-- Image Alt Text Field -->
+                        <label for="featured-image-alt" class="font-medium text-gray-300 mt-2">Image alt text:</label>
+                        <input type="text" id="featured-image-alt" name="featured_image_alt" maxlength="255" placeholder="Describe the image for screen readers..." value="<?= htmlspecialchars($imageAlt) ?>" class="w-full max-w-120 border border-amber-50 bg-white text-gray-500 p-2 rounded-sm focus:outline-none focus:ring-1 focus:ring-xlight-purple">
+
+                        <!-- Image Caption Field -->
+                        <label for="featured-image-caption" class="font-medium text-gray-300 mt-2">Image caption (optional):</label>
+                        <input type="text" id="featured-image-caption" name="featured_image_caption" maxlength="255" placeholder="Shown below the image..." value="<?= htmlspecialchars($imageCaption) ?>" class="w-full max-w-120 border border-amber-50 bg-white text-gray-500 p-2 rounded-sm focus:outline-none focus:ring-1 focus:ring-xlight-purple">
+
+                        <!-- Blog Body Text Field -->
+                        <label for="body" class="font-medium text-gray-300 mt-2">Body Content:</label>
+                        <textarea id="body" name="body" rows="10" placeholder="Write your blog post content here..." 
+                                    class="border border-amber-50 bg-white text-gray-500 p-2 rounded-sm focus:outline-none focus:ring-1 focus:ring-xlight-purple resize-y w-full"><?= htmlspecialchars($body) ?></textarea>       
+                        
+                        
+
+                        <div class="flex flex-row justify-center sm:justify-end items-center gap-5 mt-3">
+                            <button type="button" disabled class="text-white hover:text-xlight-purple tracking-wider cursor-pointer">Preview
+                            </button>  
+                            
+
+                            <button name="status" value="published" class="bg-light-purple hover:bg-dark-purple transition w-50 p-2 pb-3 rounded-full cursor-pointer tracking-wider">
+                                <?= $isPublished ? 'Update' : 'Publish' ?>
+                            </button>  
+                        </div>  
+                    </form>   
+                </section>
 
                     
                     
