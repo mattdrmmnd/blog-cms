@@ -71,7 +71,10 @@ function get_blog_post_image(object $pdo, int $id): ?string
 
 function create_blog_post(object $pdo, int $userId, string $title, string $body, string $status, ?string $featured_image, ?string $featured_image_alt, ?string $featured_image_caption): int
 {
-    $query = "INSERT INTO blog_posts (user_id, title, body, status, featured_image, featured_image_alt, featured_image_caption) VALUES (:user_id, :title, :body, :status, :featured_image, :featured_image_alt, :featured_image_caption);";
+    $publishedAt = $status === 'published' ? 'NOW()' : 'NULL';
+
+    $query = "INSERT INTO blog_posts (user_id, title, body, status, published_at, featured_image, featured_image_alt, featured_image_caption) VALUES (:user_id, :title, :body, :status, $publishedAt, :featured_image, :featured_image_alt, :featured_image_caption);";
+
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(":user_id", $userId, PDO::PARAM_INT); // Use PARAM_INT whenever a number is expected
     $stmt->bindParam(":title", $title);
@@ -87,7 +90,10 @@ function create_blog_post(object $pdo, int $userId, string $title, string $body,
 
 function update_blog_post(object $pdo, int $id, string $title, string $body, string $status, ?string $featured_image, ?string $featured_image_alt, ?string $featured_image_caption): void
 {
-    $query = "UPDATE blog_posts SET title = :title, body = :body, status = :status, featured_image = :featured_image, featured_image_alt = :featured_image_alt, featured_image_caption = :featured_image_caption  WHERE id = :id AND trashed_at IS NULL";
+    $publishedAt = $status === 'published' ? ', published_at = COALESCE(published_at, NOW())' : '';
+
+    $query = "UPDATE blog_posts SET title = :title, body = :body, status = :status$publishedAt, featured_image = :featured_image, featured_image_alt = :featured_image_alt, featured_image_caption = :featured_image_caption  WHERE id = :id AND trashed_at IS NULL";
+
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(":id", $id, PDO::PARAM_INT); // Use PARAM_INT whenever a number is expected
     $stmt->bindParam(":title", $title);
@@ -97,4 +103,26 @@ function update_blog_post(object $pdo, int $id, string $title, string $body, str
     $stmt->bindParam(":featured_image_alt", $featured_image_alt);
     $stmt->bindParam(":featured_image_caption", $featured_image_caption);
     $stmt->execute();
+}
+
+function get_published_post(object $pdo, int $id): ?array 
+{
+    $query = "SELECT blog_posts.id, title, body, blog_posts.published_at, featured_image, featured_image_alt, featured_image_caption, users.username FROM blog_posts LEFT JOIN users ON users.id = blog_posts.user_id WHERE blog_posts.id = :id AND status = 'published' AND trashed_at IS NULL;";
+
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":id", $id, PDO::PARAM_INT); // Use PARAM_INT whenever a number is expected
+    $stmt->execute();
+
+    $post = $stmt->fetch();
+    return $post ?: null;
+}
+
+function get_published_posts(object $pdo): array 
+{
+    $query = "SELECT id, title, body, published_at, featured_image, featured_image_alt, featured_image_caption FROM blog_posts WHERE status = 'published' AND trashed_at IS NULL ORDER BY published_at DESC;";
+
+    $stmt = $pdo->query($query);
+    
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
 }

@@ -1,7 +1,22 @@
 <?php
-$pageTitle = 'Matt The Dev - What I\'m Writing';
 $bodyClass = 'flex flex-col min-h-screen font-inter text-white';
+
+require_once __DIR__ . '/includes/dbh.inc.php';
+require_once __DIR__ . '/includes/posts_model.inc.php';
+
+$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+
+$post = $id ? get_published_post($pdo, $id) : null;
+
+if (!$post) {
+      http_response_code(404);
+      die("Post not found.");
+}
+
+$pageTitle = $post["title"] . ' - Matt The Dev';
+
 require __DIR__ . '/includes/head.php';
+
 ?>
 
     <!--Footer - flex-1 used in conjuction with body flex to push content downward-->
@@ -15,9 +30,9 @@ require __DIR__ . '/includes/head.php';
 
                 <div class="">
                 <h2 class="font-semibold text-2xl sm:text-large text-xlight-purple tracking-wider">
-                    <a href="">Let's talk about code!</a>
+                    <?= htmlspecialchars($post["title"]) ?>
                 </h2>
-                <p class="text-sm mt-2 pb-1">Sept 19, 2026</p>
+                <p class="text-sm mt-2 pb-1"><?= date('M j, Y', strtotime($post["published_at"])) ?></p>
                 <p class="text-sm mt-2 pb-4">Written by <a href="" class="text-xlight-purple hover:text-white">Matt D.</a> in <a href="" class="text-xlight-purple hover:text-white">Tech</a></p>
                 </div>
 
