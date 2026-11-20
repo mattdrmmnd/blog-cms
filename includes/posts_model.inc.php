@@ -107,7 +107,7 @@ function update_blog_post(object $pdo, int $id, string $title, string $body, str
 
 function get_published_post(object $pdo, int $id): ?array 
 {
-    $query = "SELECT blog_posts.id, title, body, blog_posts.published_at, featured_image, featured_image_alt, featured_image_caption, users.username FROM blog_posts LEFT JOIN users ON users.id = blog_posts.user_id WHERE blog_posts.id = :id AND status = 'published' AND trashed_at IS NULL;";
+    $query = "SELECT blog_posts.id, title, body, blog_posts.published_at, featured_image, featured_image_alt, featured_image_caption, users.display_name FROM blog_posts LEFT JOIN users ON users.id = blog_posts.user_id WHERE blog_posts.id = :id AND status = 'published' AND trashed_at IS NULL;";
 
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(":id", $id, PDO::PARAM_INT); // Use PARAM_INT whenever a number is expected
@@ -126,3 +126,16 @@ function get_published_posts(object $pdo): array
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
+
+function get_more_posts(object $pdo, int $id): array
+{
+    $query = "SELECT id, title, published_at FROM blog_posts WHERE trashed_at IS NULL AND id != :id AND status = 'published' ORDER BY published_at DESC LIMIT 4;";
+
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":id", $id, PDO::PARAM_INT); // Use PARAM_INT whenever a number is expected
+    $stmt->execute();
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+

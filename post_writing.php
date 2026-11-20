@@ -3,6 +3,7 @@ $bodyClass = 'flex flex-col min-h-screen font-inter text-white';
 
 require_once __DIR__ . '/includes/dbh.inc.php';
 require_once __DIR__ . '/includes/posts_model.inc.php';
+require_once __DIR__ . '/includes/posts_view.inc.php';
 
 $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
 
@@ -15,6 +16,12 @@ if (!$post) {
 
 $pageTitle = $post["title"] . ' - Matt The Dev';
 
+$pageDescription = post_excerpt($post["body"], 155);
+
+$paragraphs = preg_split('/\R{2,}/', $post["body"]);
+
+$morePosts = get_more_posts($pdo, $post["id"]);
+
 require __DIR__ . '/includes/head.php';
 
 ?>
@@ -26,86 +33,72 @@ require __DIR__ . '/includes/head.php';
     <?php require __DIR__ . '/includes/header.php'; ?>
       
     <section class="flex flex-col max-w-2xl mx-auto mt-3 px-12 sm:px-5">
-            <div class="flex flex-col mt-4 m-auto pb-17">
+      <div class="flex flex-col mt-4 m-auto pb-17">
 
-                <div class="">
-                <h2 class="font-semibold text-2xl sm:text-large text-xlight-purple tracking-wider">
-                    <?= htmlspecialchars($post["title"]) ?>
-                </h2>
-                <p class="text-sm mt-2 pb-1"><?= date('M j, Y', strtotime($post["published_at"])) ?></p>
-                <p class="text-sm mt-2 pb-4">Written by <a href="" class="text-xlight-purple hover:text-white">Matt D.</a> in <a href="" class="text-xlight-purple hover:text-white">Tech</a></p>
-                </div>
+        <div class="">
+          <h2 class="font-semibold text-2xl sm:text-large text-xlight-purple tracking-wider">
+              <?= htmlspecialchars($post["title"]) ?>
+          </h2>
+          <p class="text-sm mt-2 pb-1"><?= date('M j, Y', strtotime($post["published_at"])) ?></p>
+          <p class="text-sm mt-2 pb-4">Written by <span class="text-xlight-purple"><?= htmlspecialchars($post["display_name"] ?? 'Matt The Dev') ?></span>.</p>
+        </div>
 
-                
-                <a href=""><img src="<?= BASE_URL ?>public/images/post_img_00.jpg" alt="Computer screen with a code editor open." /></a>
-                            
-                <p class="text-sm text-gray-400 mt-1 text-center">
-                This is a caption
-                </p>
+        <?php if ($post["featured_image"]): ?>
+          <img src="<?= BASE_URL ?>public/uploads/blog/<?= htmlspecialchars($post["featured_image"]) ?>" alt="<?= htmlspecialchars($post["featured_image_alt"] ?? '') ?>" />
 
-                <p class="text-lg mt-4 max-w-lg tracking-wide pb-8 leading-10">
-                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pulvinar mauris ipsum, vitae volutpat felis varius sed. Aliquam vestibulum nisi a posuere viverra. Morbi porttitor, tellus eget molestie scelerisque, felis diam vulputate erat, in elementum orci lacus vitae mi. Duis sed augue mauris. <a href="" class="text-xlight-purple hover:text-white" aria-label="Read article: Lorem ipsum dolor sit amet">Suspendisse</a> potenti. Mauris eu pretium enim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse porttitor ipsum vitae ante semper consequat. Cras massa nunc, vulputate ut feugiat at, viverra non sem. Proin a urna sit amet mi volutpat gravida.
-                </p>
+          <?php if ($post["featured_image_caption"]): ?>
+            <p class="text-sm text-gray-400 mt-1 text-center">
+              <?= htmlspecialchars($post["featured_image_caption"]) ?>
+            </p>
+          <?php endif; ?>
+          
+        <?php endif; ?>
 
-                <p class="text-base mt-4 max-w-lg tracking-wide pb-8 leading-10">
-                 Ut sed arcu diam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis blandit libero ut neque eleifend laoreet ut a quam. Curabitur nec faucibus lorem. Nam ut tortor ullamcorper, congue dui vel, gravida lectus. Nam quis egestas ex, et dignissim nunc. Phasellus vehicula elit neque, ut faucibus urna sagittis ut.
-                </p>
+        
+        <?php foreach ($paragraphs as $paragraph): ?>
 
-                <p class="text-base mt-4 max-w-lg tracking-wide leading-10">
-                 Sed vel auctor justo. Vivamus vitae orci est. Curabitur maximus dui id accumsan tristique. Suspendisse sit amet velit arcu. Sed lobortis nulla orci, sed dignissim turpis venenatis euismod. Vestibulum eu metus ut neque rutrum molestie in vitae eros. Ut porta dolor vitae ex malesuada, vitae accumsan sem efficitur. Etiam aliquet fringilla varius. Praesent id arcu fermentum arcu tincidunt pharetra tempor at turpis. Nam bibendum lectus eu sapien suscipit pretium. Duis luctus et tortor in ornare. Etiam pretium nulla vitae augue vehicula, in dignissim odio molestie. Maecenas at massa tempor, bibendum purus vitae, luctus augue.
-                </p>
-            
-            </div>
+          <p class="text-xl mt-4 max-w-xl tracking-wide pb-8 leading-10">
+            <?= nl2br(htmlspecialchars($paragraph)) ?>
+          </p>
+
+        <?php endforeach; ?>
+      
+      </div>
     </section>
 
     <section class="flex flex-col max-w-2xl mx-auto mt-3 pb-27 px-12">
-            <div class="flex flex-row gap-2 items-center pb-12 tracking-wider">
-              <p>Share:</p>
-              <img src="<?= BASE_URL ?>public/images/share_icon.svg" class="h-6 pt-1 cursor-pointer" id="share-icon" />
-            </div>
+      <div class="flex flex-row gap-2 items-center pb-12 tracking-wider">
+        <p>Share:</p>
+        <img src="<?= BASE_URL ?>public/images/share_icon.svg" class="h-6 pt-1 cursor-pointer" id="share-icon" />
+      </div>
 
-            <!--Toast Message--> 
-            <div id="share-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-orange-200 text-darkest-purple px-4 py-2 rounded-md opacity-0 pointer-events-none transition-opacity duration-300">
-            </div>
+      <!--Toast Message--> 
+      <div id="share-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-orange-200 text-darkest-purple px-4 py-2 rounded-md opacity-0 pointer-events-none transition-opacity duration-300">
+      </div>
 
-            <h3 class="uppercase font-bold tracking-wider pb-6">More Posts</h3>
-            <ul>
-              <li class="flex flex-col sm:flex-row justify-between border-b-[0.25px] border-solid border-gray-800 py-4">
-                <a href="">
-                  <p class="text-light-purple hover:text-xlight-purple text-xl">
-                    Welcome to my blog!
-                  </p>
-                </a>
-                <p class="text-md">Sept 15, 2026</p></a>
-              </li>
+      <?php if ($morePosts): ?>
+        <h3 class="uppercase font-bold tracking-wider pb-6">More Posts</h3>
+        <ul>
+          
+          <?php foreach ($morePosts as $morePost): ?>
 
-              <li class="flex flex-col sm:flex-row justify-between border-b-[0.25px] border-solid border-gray-800 py-4">
-                <a href="">
-                  <p class="text-light-purple hover:text-xlight-purple text-xl">
-                  Git Bash commands I use the most
-                  </p>
-                </a>
-                <p class="text-md">Sept 12, 2026</p>
-              </li>
+            <li class="flex flex-col sm:flex-row justify-between border-b-[0.25px] border-solid border-gray-800 py-4">
+              <a href="<?= BASE_URL ?>post_writing.php?id=<?= $morePost["id"] ?>">
+                
+                <p class="text-xlight-purple hover:text-light-purple text-xl">
+                  <?= htmlspecialchars($morePost["title"]) ?>
+                </p>
+              
+              </a>
+              
+              <p class="text-md"><?= date('M j, Y', strtotime($morePost["published_at"])) ?></p>
+            </li>
 
-              <li class="flex flex-col sm:flex-row justify-between border-b-[0.25px] border-solid border-gray-800 py-4">
-                <a href="">
-                  <p class="text-light-purple hover:text-xlight-purple text-xl">
-                    How to setup Tailwind
-                  </p>
-                </a>
-                <p class="text-md">Sept 9, 2026</p>
-              </li>
+          <?php endforeach; ?>
 
-              <li class="flex flex-col sm:flex-row justify-between border-b-[0.25px] border-solid  border-gray-800 py-4">
-                  <a href="">
-                    <p class="text-light-purple hover:text-xlight-purple text-xl">
-                      Tips and Tricks: resizing images
-                    </p>
-                  </a>
-                  <p class="text-md">Sept 1, 2026</p>
-                </li>
-            </ul>
+        </ul>
+      <?php endif; ?>
+
     </section>
   </div>
 

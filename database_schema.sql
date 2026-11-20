@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2026 at 10:54 PM
+-- Generation Time: Nov 17, 2026 at 11:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.5.10
 
@@ -64,6 +64,7 @@ CREATE TABLE `login_attempts` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(30) NOT NULL,
+  `display_name` varchar(100) DEFAULT NULL,
   `pwd` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
