@@ -6,7 +6,7 @@
 
       <?php if (isset($_SESSION["user_id"])) { ?>
 
-        <div class="self-end mb-5 sm:mb-2 mt-4 sm:mt-2 flex flex-col sm:flex-row items-center gap-4 sm:gap-2">
+        <div class="self-end mb-9 sm:mb-2 mt-4 sm:mt-2 flex flex-col sm:flex-row items-center gap-4 sm:gap-2">
 
           <a class="tracking-wider text-xs hover:text-xlight-purple transition-colors" href="<?= BASE_URL ?>admin/dashboard.php">Dashboard</a>
 
