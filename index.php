@@ -57,26 +57,30 @@ require __DIR__ . '/includes/head.php';
                   <img src="<?= BASE_URL ?>public/images/avatar.webp" alt="Matt's profile image: a Hand-drawn M and @ symbol" class="w-15 h-15 rounded-full object-cover" />
                   
                   <div>
-                    <p class="text-lg tracking-wider"><b>Location: </b>USA</p>
-                    <p class="text-md max-w-71 tracking-wider mt-1">Contact me: <a href="mailto:matt@optmzd.net" class="text-gray-400 hover:text-white" rel="noopener noreferrer">matt@optmzd.net</a></p>
+                    <p class="text-lg tracking-wider"><b>Location: </b>The Valley, AZ USA</p>
+                    <p class="text-md max-w-71 tracking-wider mt-1">Contact me: <a href="mailto:matt@optmzd.net" class="text-xlight-purple hover:text-white" rel="noopener noreferrer">matt@optmzd.net</a></p>
                   </div>
                   
                 </div> 
                 
-                <p class="text-lg mt-7 pb-8 max-w-lg tracking-wider  leading-10">
-                I'm an alumnus of Full Sail University, where I completed the <a href="https://www.fullsail.edu/degrees/digital-arts-design-bachelor-degree-program" class="text-xlight-purple hover:text-white" target="_blank" rel="noopener noreferrer">Digital Arts & Design</a> program and achieved a Bachelor of Science degree. My interests include developing secure three-tier applications. <!--My workflow includes the use of AI tools like Claude to accelerate learning & debugging.-->
-                </p>
-                
-                <p class="text-lg pb-8 max-w-lg tracking-wider">Visit <a href="https://x.com/itsmattdev" class="text-xlight-purple hover:text-white" target="_blank" rel="noopener noreferrer">my X</a> profile to see the latest.</p>
+                <div class="flex flex-col mt-7 pb-8 max-w-lg text-lg tracking-wider leading-10">
+                  <p class="pb-8">Full-stack web developer and owner of OPTMZD. I build secure, database-driven web applications, from a custom PHP and MySQL blog CMS to modern front ends in TypeScript.</p>
+                  <p class="pb-8">I designed and built this blog CMS from scratch in raw PHP and MySQL, with an authenticated admin panel and a public front end. Next, I'm rebuilding the OPTMZD company site in the TALL stack, followed by a SaaS MVP app, planned for spring.</p>
+                  <p>B.S., Digital Arts &amp; Design, <a href="https://www.fullsail.edu/degrees/digital-arts-design-bachelor-degree-program" class="text-xlight-purple hover:text-white" target="_blank" rel="noopener noreferrer">Full Sail University</a>.</p>
+                </div>
 
-                <div class="w-full max-w-lg min-h-full">
-                  <h2 class="font-bold text-xl sm:text-xl tracking-wider pb-3">
-                  Experience:
-                  </h2>
+                <div class="w-full max-w-lg min-h-full border-l-[0.25px] border-solid border-orange-200 ps-4">
+                  <h2 class="font-bold text-xl tracking-wider pb-3 text-orange-200">Experience:</h2>
 
-                  <p class="text-md sm:text-lg pb-3 max-w-lg tracking-wider">Full-Stack Web Developer @ <a href="https://optmzd.net" class="text-xlight-purple hover:text-white" target="_blank" rel="noopener noreferrer">OPTMZD</a></p>
+                  <div class="pb-5">
+                    <p class="text-md sm:text-lg tracking-wider leading-10"><b>Full-Stack Web Developer, <a href="https://optmzd.net" class="text-xlight-purple hover:text-white" target="_blank" rel="noopener noreferrer">OPTMZD</a> (Owner)</b></p>
+                    <p class="text-md text-gray-300 tracking-wider leading-10 ps-2">Building a blog CMS in raw PHP and MySQL with an authenticated admin panel. Next: the company site in the TALL stack, then a SaaS product.</p>
+                  </div>
 
-                  <p class="text-md sm:text-lg max-w-lg tracking-wider pb-8">Front-End Development @ <a href="https://sieb.com/" class="text-xlight-purple hover:text-white" target="_blank" rel="noopener noreferrer">SIEB</a></p>
+                  <div class="pb-8">
+                    <p class="text-md sm:text-lg tracking-wider leading-10"><b>Production Designer, <a href="https://sieb.com/" class="text-xlight-purple hover:text-white" target="_blank" rel="noopener noreferrer">SIEB</a> (2 years)</b></p>
+                    <p class="text-md text-gray-300 tracking-wider leading-10 ps-2">Worked across visual design, email marketing, front-end development, and JavaScript web banners.</p>
+                  </div>
                 </div>
 
 
@@ -86,15 +90,15 @@ require __DIR__ . '/includes/head.php';
     <section class="flex flex-col max-w-3xl mx-auto px-7 sm:px-5">
 
             <div class="flex flex-col p-7 pt-12 pb-12 sm:pl-15 mt-12 bg-black/50 rounded-xl ">
-              <h2 class="font-semibold text-white text-xl sm:text-xl tracking-wider">
+              <h2 class="font-semibold text-orange-200 text-xl sm:text-xl tracking-wider">
                   Skills
               </h2>
 
 
                 <div class="grid grid-cols-autofit gap-5 tracking-wider pt-3 m-auto sm:m-0">
                   <div>
-                  <h3 class="text-orange-200 pb-2">Front-End</h3>
-                      <ul>
+                  <h3 class="pb-2 underline">Front-End</h3>
+                      <ul class="text-orange-100">
                           <li>CSS</li>
                           <li>HTML</li>
                           <li>Javascript</li>
@@ -104,17 +108,17 @@ require __DIR__ . '/includes/head.php';
                   </div>
                   
                   <div>
-                  <h3 class="text-orange-200 pb-2">Server-Side</h3>
-                      <ul>
+                  <h3 class="pb-2 underline">Server-Side</h3>
+                      <ul class="text-orange-100">
                           <li>MySQL</li>
                           <li>Node.js</li>
-                          <li>PHP / Laravel</li>
+                          <li>PHP</li>
                       </ul>
                   </div>
 
                   <div>
-                  <h3 class="text-orange-200 pb-2">Tools & Design</h3>
-                      <ul>
+                  <h3 class="pb-2 underline">Tools & Design</h3>
+                      <ul class="text-orange-100">
                           <li>Adobe CC Pro</li>
                           <li>Figma</li>
                           <li>Git / GitHub</li>
