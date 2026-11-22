@@ -139,3 +139,13 @@ function get_more_posts(object $pdo, int $id): array
     return $result;
 }
 
+function get_recent_posts(object $pdo): array
+{
+    $query = "SELECT id, title, published_at, pinned_at FROM blog_posts WHERE trashed_at IS NULL AND status = 'published' ORDER BY pinned_at IS NULL, published_at DESC LIMIT 5;";
+
+    $stmt = $pdo->query($query);
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+

@@ -5,6 +5,11 @@ $pageDescription = 'Full-stack web developer Matt Drummond writes about building
 
 $bodyClass = 'home flex flex-col min-h-screen bg-cover bg-center bg-fixed font-inter text-white';
 
+require_once __DIR__ . '/includes/dbh.inc.php';
+require_once __DIR__ . '/includes/posts_model.inc.php';
+
+$recentPosts = get_recent_posts($pdo);
+
 require __DIR__ . '/includes/head.php';
 ?>
 
@@ -48,6 +53,17 @@ require __DIR__ . '/includes/head.php';
       </div>
     </section>
 
+    <section class="max-w-3xl mx-auto mt-12 px-7 sm:px-5">
+      <div class="bg-black/50 rounded-xl p-7 sm:p-12">
+        <h2 class="font-semibold text-md text-white tracking-wider">GitHub Activity</h2>
+        <div class="mt-5 overflow-x-auto" dir="rtl" role="region" aria-label="GitHub contribution graph">
+          <a href="https://github.com/mattdrmmnd" target="_blank" rel="noopener noreferrer" class="block hover:opacity-80">
+            <img src="https://ghchart.rshah.org/3E0058/mattdrmmnd" alt="Matt's GitHub contribution graph. Visit Matt on GitHub" class="min-w-[600px] w-full h-auto" />
+          </a>
+        </div>
+      </div>
+    </section>
+
 
     <section class="flex flex-col max-w-3xl mx-auto mt-3 px-7 sm:px-5">
             <div class="flex flex-col mt-4 m-auto pb-5 w-full max-w-[725px] min-h-full bg-black/50 rounded-xl p-7 sm:pl-25">
@@ -66,23 +82,26 @@ require __DIR__ . '/includes/head.php';
                 <div class="flex flex-col mt-7 pb-8 max-w-lg text-lg tracking-wider leading-10">
                   <p class="pb-8">Full-stack web developer and owner of OPTMZD. I build secure, database-driven web applications, from a custom PHP and MySQL blog CMS to modern front ends in TypeScript.</p>
                   <p class="pb-8">I designed and built this blog CMS from scratch in raw PHP and MySQL, with an authenticated admin panel and a public front end. Next, I'm rebuilding the OPTMZD company site in the TALL stack, followed by a SaaS MVP app, planned for spring.</p>
-                  <p>B.S., Digital Arts &amp; Design, <a href="https://www.fullsail.edu/degrees/digital-arts-design-bachelor-degree-program" class="text-xlight-purple hover:text-white" target="_blank" rel="noopener noreferrer">Full Sail University</a>.</p>
-                </div>
+                  
 
                 <div class="w-full max-w-lg min-h-full border-l-[0.25px] border-solid border-orange-200 ps-4">
                   <h2 class="font-bold text-xl tracking-wider pb-3 text-orange-200">Experience:</h2>
 
                   <div class="pb-5">
                     <p class="text-md sm:text-lg tracking-wider leading-10"><b>Full-Stack Web Developer, <a href="https://optmzd.net" class="text-xlight-purple hover:text-white" target="_blank" rel="noopener noreferrer">OPTMZD</a> (Owner)</b></p>
-                    <p class="text-md text-gray-300 tracking-wider leading-10 ps-2">Building a blog CMS in raw PHP and MySQL with an authenticated admin panel. Next: the company site in the TALL stack, then a SaaS product.</p>
+                    <p class="text-md text-gray-300 tracking-wider leading-10 ps-2">Building a blog CMS in raw PHP and MySQL with an authenticated admin panel. Next: the company site in the TALL stack, then a SaaS MVP product.</p>
                   </div>
 
                   <div class="pb-8">
                     <p class="text-md sm:text-lg tracking-wider leading-10"><b>Production Designer, <a href="https://sieb.com/" class="text-xlight-purple hover:text-white" target="_blank" rel="noopener noreferrer">SIEB</a> (2 years)</b></p>
                     <p class="text-md text-gray-300 tracking-wider leading-10 ps-2">Worked across visual design, email marketing, front-end development, and JavaScript web banners.</p>
-                  </div>
+                  </div>  
                 </div>
 
+                  <p class="mt-8">B.S., Digital Arts &amp; Design, 
+                    <a href="https://www.fullsail.edu/degrees/digital-arts-design-bachelor-degree-program" class="text-xlight-purple hover:text-white" target="_blank" rel="noopener noreferrer">Full Sail University</a>.
+                  </p>
+                </div>
 
             </div>
     </section>
@@ -134,34 +153,48 @@ require __DIR__ . '/includes/head.php';
             
     </section>
 
-    <section class="max-w-fit mx-auto my-12 px-7 sm:px-5">
-      
-      <div class="px-12 sm:px-8 py-12 bg-black/50 rounded-xl">
-        <h2 class="font-semibold text-xl text-center text-white tracking-wider">Featured Posts</h2>
-
-        <div class="mt-5 flex flex-col mid1000:flex-row justify-center items-center gap-15">
-          <div class="flex flex-col items-center tracking-wider">
-            <a href=""><img src="<?= BASE_URL ?>public/images/post_img_01.jpg" alt="Read the first feature story" class="w-auto h-auto max-w-full max-h-65 mid1000:max-h-40 rounded-md" /></a>
-            <p class="pt-3 tracking-wider">Lorem ipsum dolor sit amet...</p>
-            <a href="" class="button mt-7" aria-label="Read article: The First article">Read the article</a>
-          </div>
-
-          <div class="flex flex-col items-center tracking-wider">
-            <a href=""><img src="<?= BASE_URL ?>public/images/post_img_00.jpg" alt="Read the second feature story" class="w-auto h-auto max-w-full max-h-65 mid1000:max-h-40 rounded-md" /></a>
-            <p class="pt-3 tracking-wider">Lorem ipsum dolor sit amet...</p>
-            <a href="" class="button mt-7" aria-label="Read article: The second">Read the article</a>
-          </div>
-
-          <div class="flex flex-col items-center tracking-wider">
-            <a href=""><img src="<?= BASE_URL ?>public/images/post_img_03.jpg" alt="Read the third feature story" class="w-auto h-auto max-w-full max-h-65 mid1000:max-h-40 rounded-md" /></a>
-            <p class="pt-3 tracking-wider">Lorem ipsum dolor sit amet...</p>
-            <a href="" class="button mt-7" aria-label="Read article: The third article">Read the article</a>
-          </div>
-        </div>
-
-      </div>
+    <?php if ($recentPosts): ?>
+      <section class="flex flex-col max-w-3xl mx-auto my-12 px-7 sm:px-5">
         
-    </section>
+        <div class="px-12 sm:px-8 py-12 bg-black/50 rounded-xl">
+          <h2 class="font-semibold text-xl text-center text-white tracking-wider">Recent Posts</h2>
+
+          <div class="flex flex-col max-w-2xl mx-auto mt-3 pb-8 px-12">
+            <ul>
+            
+              <?php foreach ($recentPosts as $recentPost): ?>
+
+                <li class="flex flex-col sm:flex-row justify-between border-b-[0.25px] border-solid border-gray-800 py-4">
+                  <a href="<?= BASE_URL ?>post_writing.php?id=<?= $recentPost["id"] ?>">
+                    
+                    <div class="flex flex-row gap-1">
+
+                      <?php if ($recentPost["pinned_at"]): ?>
+                      <span class="material-symbols-outlined" aria-hidden="true">
+                        keep
+                      </span>
+                      <span class="sr-only">Pinned:</span>
+                      <?php endif; ?>
+
+                      <p class="text-xlight-purple hover:text-light-purple text-xl">
+                        <?= htmlspecialchars($recentPost["title"]) ?>
+                      </p>
+                    </div>
+                  
+                  </a>
+                  
+                  <p class="text-md"><?= date('M j, Y', strtotime($recentPost["published_at"])) ?></p>
+                </li>
+
+              <?php endforeach; ?>
+
+            </ul>
+          </div>
+
+        </div>
+          
+      </section>
+    <?php endif; ?>
 
   </div>
 

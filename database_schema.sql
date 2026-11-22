@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2026 at 11:47 PM
+-- Generation Time: Nov 22, 2026 at 07:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.5.10
 
@@ -36,6 +36,7 @@ CREATE TABLE `blog_posts` (
   `featured_image_caption` varchar(255) DEFAULT NULL,
   `status` enum('draft','published') NOT NULL DEFAULT 'draft',
   `published_at` datetime DEFAULT NULL,
+  `pinned_at` datetime DEFAULT NULL,
   `trashed_at` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),

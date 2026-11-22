@@ -30,7 +30,7 @@ if (isset($_COOKIE[session_name()])) //PHPSESSID
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!--Material Symbols: add new icon names to icon_names, comma-separated and in alphabetical order-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=call_made" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=call_made,keep" />
 
     <!--Built by Vite: npm run build or npm run watch-->
     <link rel="stylesheet" href="<?= BASE_URL ?>build/main.css?v=<?= filemtime(__DIR__ . '/../build/main.css') ?>">
