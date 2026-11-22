@@ -119,7 +119,7 @@ function get_published_post(object $pdo, int $id): ?array
 
 function get_published_posts(object $pdo): array 
 {
-    $query = "SELECT id, title, body, published_at, featured_image, featured_image_alt, featured_image_caption FROM blog_posts WHERE status = 'published' AND trashed_at IS NULL ORDER BY published_at DESC;";
+    $query = "SELECT id, title, body, published_at FROM blog_posts WHERE status = 'published' AND trashed_at IS NULL ORDER BY published_at DESC;";
 
     $stmt = $pdo->query($query);
     

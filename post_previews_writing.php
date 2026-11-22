@@ -1,153 +1,55 @@
 <?php
 $pageTitle = 'Matt The Dev - What I\'m Writing';
 $bodyClass = 'flex flex-col min-h-screen font-inter text-white';
+
+require_once __DIR__ . '/includes/dbh.inc.php';
+require_once __DIR__ . '/includes/posts_model.inc.php';
+require_once __DIR__ . '/includes/posts_view.inc.php';
+
+
+$posts = get_published_posts($pdo);
+
+$pageDescription = "Posts about web development and related topics";
+
 require __DIR__ . '/includes/head.php';
 ?>
 
-    <!--Footer - flex-1 used in conjuction with body flex to push content downward-->
-    <!--footer must be under this div-->
-    <div class="flex-1">
+  <!--Footer - flex-1 used in conjuction with body flex to push content downward-->
+  <!--footer must be under this div-->
+  <div class="flex-1 pb-8">
 
     <?php require __DIR__ . '/includes/header.php'; ?>
+
+      <div class="flex flex-col max-w-2xl mx-auto mt-4 px-12 sm:px-5 ">
+        <h1 class="font-semibold text-lg sm:text-xl uppercase text-orange-200 tracking-wider mx-auto">What I'm writing</h1>
+      </div>
       
-      <section class="flex flex-col max-w-2xl mx-auto mt-3 px-12 sm:px-5">
-              <div class="flex flex-col mt-4 m-auto pb-17">
+      <?php if ($posts): ?>
+        <?php foreach ($posts as $post): ?>
+        <section class="flex flex-col max-w-2xl mx-auto px-12 sm:px-5">
+          <div class="flex flex-col pt-10 pb-10 border-b-[0.25px] border-solid border-gray-800 [section:last-of-type_&]:border-b-0">
 
-                  <h1 class="font-semibold text-lg sm:text-xl uppercase text-xlight-purple tracking-wider pb-5">What I'm writing</h1>
-                  
-                  <div class="">
-                    <h2 class="font-semibold text-2xl sm:text-3xl">
-                      <a href="<?= BASE_URL ?>post_writing.php">Let's talk about code!</a>
-                    </h2>
-                    <p class="text-sm mt-2 pb-4">Sept 19, 2026</p>
-                  </div>
+            <div class="">
+              <h2 class="font-semibold text-xl text-xlight-purple hover:text-white">
+                <a href="<?= BASE_URL ?>post_writing.php?id=<?= $post["id"] ?>"><?= htmlspecialchars($post["title"]) ?></a>
+              </h2>
+              <p class="text-sm mt-2"><?= date('M j, Y', strtotime($post["published_at"])) ?></p>
+            </div>
 
-                  
-                  <a href="<?= BASE_URL ?>post_writing.php"><img src="<?= BASE_URL ?>public/images/post_img_00.jpg" alt="Computer screen with a code editor open." /></a>
-                                
-                  <p class="text-sm text-gray-400 mt-1 text-center">
-                    This is a caption
-                  </p>
+            <p class="text-base mt-4 max-w-lg">
+              <?= htmlspecialchars(post_excerpt($post["body"], 200)) ?> 
+            </p>
+            <a href="<?= BASE_URL ?>post_writing.php?id=<?= $post["id"] ?>" aria-label="More: <?= htmlspecialchars($post["title"]) ?>" class="text-xlight-purple hover:text-white mt-5 self-start">More</a>
+          </div>
+        </section>
+        <?php endforeach; ?>
+        
+      <?php else: ?>
+        <div class="max-w-2xl mx-auto px-12 sm:px-5 pt-10">
+          <p>No posts yet.</p>
+        </div>
+      <?php endif ?>
 
-                  <p class="text-base mt-4 max-w-lg">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam placerat tortor ut magna consequat scelerisque. <a href="<?= BASE_URL ?>post_writing.php" aria-label="More: Let's talk about code!" class="text-xlight-purple hover:text-white">More</a>
-                  </p>
-                
-              </div>
-      </section>
-
-       <section class="flex flex-col max-w-2xl mx-auto mt-3 px-12 sm:px-5">
-              <div class="flex flex-col mt-4 m-auto pb-17">
-
-                  <div class="">
-                    <h2 class="font-semibold text-2xl sm:text-3xl">
-                      <a href="">Welcome to my blog!</a>
-                    </h2>
-                    <p class="text-sm mt-2 pb-4">Sept 19, 2026</p>
-                  </div>
-
-                  
-                  <a href=""><img src="<?= BASE_URL ?>public/images/post_img_01.jpg" alt="Computer screen with a code editor open." /></a>
-                                
-                  <p class="text-sm text-gray-400 mt-1 text-center">
-                    This is a caption
-                  </p>
-
-                  <p class="text-base mt-4 max-w-lg">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam placerat tortor ut magna consequat scelerisque. <a href="" aria-label="More: Welcome to my blog!" class="text-xlight-purple hover:text-white">More</a>
-                  </p>
-                
-              </div>
-      </section>
-
-      <section class="flex flex-col max-w-2xl mx-auto mt-3 px-12 sm:px-5">
-              <div class="flex flex-col mt-4 m-auto pb-17">
-                  
-                  <div class="">
-                    <h2 class="font-semibold text-2xl sm:text-3xl">
-                      <a href="">Let's talk about code!</a>
-                    </h2>
-                    <p class="text-sm mt-2 pb-4">Sept 19, 2026</p>
-                  </div>
-
-                  
-                  <a href=""><img src="<?= BASE_URL ?>public/images/post_img_00.jpg" alt="Computer screen with a code editor open." /></a>
-                                
-                  <p class="text-sm text-gray-400 mt-1 text-center">
-                    This is a caption
-                  </p>
-
-                  <p class="text-base mt-4 max-w-lg">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam placerat tortor ut magna consequat scelerisque. <a href="" aria-label="More: Let's talk about code!" class="text-xlight-purple hover:text-white">More</a>
-                  </p>
-                
-              </div>
-      </section>
-
-       <section class="flex flex-col max-w-2xl mx-auto mt-3 px-12 sm:px-5">
-              <div class="flex flex-col mt-4 m-auto">
-
-                  <div class="">
-                    <h2 class="font-semibold text-2xl sm:text-3xl">
-                      <a href="">Welcome to my blog!</a>
-                    </h2>
-                    <p class="text-sm mt-2 pb-4">Sept 19, 2026</p>
-                  </div>
-
-                  
-                  <a href=""><img src="<?= BASE_URL ?>public/images/post_img_01.jpg" alt="Computer screen with a code editor open." /></a>
-                                
-                  <p class="text-sm text-gray-400 mt-1 text-center">
-                    This is a caption
-                  </p>
-
-                  <p class="text-base mt-4 max-w-lg">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam placerat tortor ut magna consequat scelerisque. <a href="" aria-label="More: Welcome to my blog!" class="text-xlight-purple hover:text-white">More</a>
-                  </p>
-                
-              </div>
-      </section>
-      
-
-      <nav aria-label="Pagination" class="flex justify-center mt-20 pb-10">
-        <ul class="flex items-stretch divide-x divide-light-purple overflow-hidden rounded-md border border-light-purple text-white text-sm sm:text-base">
-
-          <li>
-            <a href="?page=1" class="flex h-10 sm:h-12 items-center gap-2 px-2 sm:px-4 hover:bg-purple-900/40">
-              <svg class="h-4 w-4 sm:h-5 sm:w-5 text-light-purple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M15 5l-7 7 7 7" />
-              </svg>
-              <span class="hidden sm:inline">Prev.</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="?page=1" aria-current="page" class="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center bg-light-purple/40">1</a>
-          </li>
-          <li>
-            <a href="?page=2" class="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center hover:bg-light-purple/40">2</a>
-          </li>
-          <li class="hidden sm:block">
-            <a href="?page=3" class="flex h-12 w-12 items-center justify-center hover:bg-light-purple/40">3</a>
-          </li>
-          <li class="hidden sm:block">
-            <span class="flex h-12 w-12 items-center justify-center" aria-hidden="true">&hellip;</span>
-          </li>
-          <li class="hidden sm:block">
-            <a href="?page=7" class="flex h-12 w-12 items-center justify-center hover:bg-light-purple/40">7</a>
-          </li>
-
-          <li>
-            <a href="?page=2" class="flex h-10 sm:h-12 items-center gap-2 px-2 sm:px-4 hover:bg-light-purple/40">
-              <span class="hidden sm:inline">Next</span>
-              <svg class="h-4 w-4 sm:h-5 sm:w-5 text-light-purple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
-          </li>
-
-        </ul>
-      </nav>
   </div>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>
