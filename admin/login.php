@@ -45,12 +45,12 @@ require __DIR__ . '/../includes/head.php';
                       <label for="password" class="text-xlight-purple text-sm tracking-wider mt-4">Password</label>
                       <div class="relative">
                         <input type="password" id="password" name="pwd" placeholder="password" autocomplete="current-password" required class="w-full border border-amber-50 bg-white text-gray-500 p-1 pr-14 rounded-sm [&::-ms-reveal]:hidden">
-                        <button type="button" data-password-toggle aria-controls="password" aria-label="Show password" class="absolute right-1 top-1/2 -translate-y-1/2 px-2 text-sm font-semibold text-dark-purple hover:text-light-purple transition-colors cursor-pointer">Show</button>
+                        <button type="button" data-password-toggle aria-controls="password" aria-label="Show password" class="absolute right-1 top-1/2 -translate-y-1/2 px-2 text-sm font-semibold text-gray-500 hover:text-light-purple transition-colors cursor-pointer">Show</button>
                       </div>
                     </div>
 
                     <div class="flex flex-col gap-2">
-                        <a href="mailto:matt@email.com?subject=Admin%20login%20help" class="self-start text-light-purple text-sm hover:text-white transition-colors tracking-wider">Need help?</a>
+                        <a href="mailto:info@optmzd.net?subject=Admin%20login%20help" class="self-start text-gray-500 text-sm hover:text-white transition-colors tracking-wider">Need help?</a>
 
                         <div>
                             <label class="flex flex-row items-center gap-2 text-sm tracking-wider cursor-pointer">

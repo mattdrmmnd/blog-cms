@@ -60,7 +60,7 @@ require __DIR__ . '/includes/head.php';
         
         <?php foreach ($paragraphs as $paragraph): ?>
 
-          <p class="text-xl mt-4 max-w-xl tracking-wide pb-8 leading-10">
+          <p class="text-xl mt-4 max-w-2xl tracking-wider pb-8 leading-10">
             <?= nl2br(htmlspecialchars($paragraph)) ?>
           </p>
 
