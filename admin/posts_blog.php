@@ -129,6 +129,25 @@ require __DIR__ . '/../includes/head.php';
                                                 <button type="submit" class="text-red-300 hover:text-white transition-colors" aria-label="Trash: <?= htmlspecialchars($post['title']) ?>">Trash</button>
 
                                             </form>
+
+                                            
+                                            
+                                            <?php if ($post["status"] === 'published'):  ?>
+                                                
+                                                <span aria-hidden="true" class="text-gray-500">|</span>
+                                                
+                                                <form action="<?= BASE_URL ?>admin/posts_blog_pin.php" method="post" class="inline">
+
+                                                    <?php csrf_field(); ?>
+
+                                                    <input type="hidden" name="action" value="<?= $post["pinned_at"] ? 'unpin' : 'pin' ?>">
+                                                    <input type="hidden" name="id" value="<?= $post["id"] ?>">
+
+                                                    <button type="submit" class="text-gray-400 hover:text-white transition-colors" aria-label="<?= $post["pinned_at"] ? 'Unpin' : 'Pin' ?>: <?= htmlspecialchars($post['title']) ?>"><?= $post["pinned_at"] ? 'Unpin' : 'Pin' ?></button>
+
+                                                </form>
+                                            <?php endif; ?>
+
                                         </div>
 
                                         <?php endif; ?>

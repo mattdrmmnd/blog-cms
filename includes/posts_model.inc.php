@@ -6,7 +6,7 @@ function get_blog_posts(object $pdo, bool $trashed = false): array
 {
     $condition = $trashed ? 'IS NOT NULL' : 'IS NULL';
     
-    $query = "SELECT blog_posts.id, title, blog_posts.created_at, blog_posts.trashed_at, users.username, status FROM blog_posts LEFT JOIN  users ON users.id = blog_posts.user_id WHERE blog_posts.trashed_at $condition ORDER BY blog_posts.created_at DESC;";
+    $query = "SELECT blog_posts.id, title, blog_posts.created_at, blog_posts.trashed_at, pinned_at, users.username, status FROM blog_posts LEFT JOIN  users ON users.id = blog_posts.user_id WHERE blog_posts.trashed_at $condition ORDER BY blog_posts.created_at DESC;";
     
     $stmt = $pdo->query($query);
 
@@ -30,7 +30,7 @@ function get_blog_post(object $pdo, int $id): ?array
 
 function trash_blog_post(object $pdo, int $id): int
 {
-    $query = "UPDATE blog_posts SET trashed_at = NOW() WHERE id = :id AND trashed_at IS NULL;";
+    $query = "UPDATE blog_posts SET trashed_at = NOW(), pinned_at = NULL WHERE id = :id AND trashed_at IS NULL;";
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(":id", $id, PDO::PARAM_INT); // Use PARAM_INT whenever a number is expected
     $stmt->execute();
@@ -149,3 +149,36 @@ function get_recent_posts(object $pdo): array
     return $result;
 }
 
+function pin_blog_post(object $pdo, int $id): int
+{
+    $pdo->beginTransaction();
+
+    $query = "UPDATE blog_posts SET pinned_at = NULL WHERE pinned_at IS NOT NULL;";
+    
+    $pdo->query($query);
+
+    $query = "UPDATE blog_posts SET pinned_at = NOW() WHERE id = :id AND status = 'published' AND trashed_at IS NULL;";
+    
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":id", $id, PDO::PARAM_INT); // Use PARAM_INT whenever a number is expected
+    $stmt->execute();
+
+    $pinned = $stmt->rowCount();
+
+    if ($pinned === 1) {
+        $pdo->commit();    
+    } else {
+        $pdo->rollBack();
+    }
+    return $pinned;
+}
+
+function unpin_blog_post(object $pdo, int $id): int
+{
+    $query = "UPDATE blog_posts SET pinned_at = NULL WHERE id = :id AND pinned_at IS NOT NULL;";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":id", $id, PDO::PARAM_INT); // Use PARAM_INT whenever a number is expected
+    $stmt->execute();
+
+    return $stmt->rowCount();
+}
