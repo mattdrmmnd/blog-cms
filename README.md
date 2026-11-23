@@ -31,10 +31,11 @@ Built with help from Claude Code, which I used for explanations, planning and co
     - [x] Keep, replace or remove the featured image
     - [x] Save draft returns to the edit form, Publish goes to the list
     - [x] A flash message for each button (saved, published, updated, unpublished)
-  - [ ] Public post pages
+  - [x] Public post pages (post list and single post page; pagination comes later)
+  - [x] Recent Posts on the home page, with one post pinned from the admin list
 
 ### Planned
-- Featured posts
+- Pagination on the post list
 - Deploy to production (v0.1.0)
 - After launch: reading posts, user management, access requests and site settings, released as they're finished on the way to v1.0.0
 - Categories and comments tables
@@ -55,6 +56,10 @@ Built with help from Claude Code, which I used for explanations, planning and co
 
 &nbsp;
 
+<img src="public/images/frontend_post_previews_writing.jpg" alt="Post list page of the blog frontend" width="700">
+
+&nbsp;
+
 <img src="public/images/frontend_post_writing.jpg" alt="Post page of the blog frontend" width="700">
 
 &nbsp;
@@ -72,10 +77,6 @@ width="700">
 
 &nbsp;
 
-<img src="public/images/admin_dashboard.jpg" alt="Admin Dashboard" width="700">
-
-&nbsp;
-
 <img src="public/images/admin_posts_blog.jpg" alt="Admin blog posts list" width="700">
 
 &nbsp;
@@ -85,10 +86,6 @@ width="700">
 &nbsp;
 
 <img src="public/images/admin_posts_blog_edit.jpg" alt="Admin blog post form edit" width="700">
-
-&nbsp;
-
-<img src="public/images/admin_featured_posts.jpg" alt="Admin featured posts page" width="700">
 
 &nbsp;
 

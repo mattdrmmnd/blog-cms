@@ -36,22 +36,6 @@ $navLink = function (string $page) use ($activePage): string {
                             </a>
                         </li>
                         <li>
-                            <!--Stays open while one of its pages is the current page-->
-                            <details class="group"<?= $activePage === 'featured_posts' ? ' open' : '' ?>>
-                                <summary class="flex items-center p-2 rounded-sm hover:bg-light-purple/40 transition-colors whitespace-nowrap cursor-pointer list-none">
-                                    Home
-                                    <span class="ml-2 transition-transform group-open:rotate-45" aria-hidden="true">+</span>
-                                </summary>
-                                <ul class="flex flex-col gap-1 mt-1 sm:ml-4">
-                                    <li>
-                                        <a <?= $navLink('featured_posts') ?>>
-                                            Featured Posts
-                                        </a>
-                                    </li>
-                                </ul>
-                            </details>
-                        </li>
-                        <li>
                             <a <?= $navLink('users') ?>>
                                 Users
                             </a>
