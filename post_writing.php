@@ -1,6 +1,9 @@
 <?php
 $bodyClass = 'flex flex-col min-h-screen font-inter text-white';
 
+$activePage = 'writing';
+$ariaCurrent = 'true';
+
 require_once __DIR__ . '/includes/dbh.inc.php';
 require_once __DIR__ . '/includes/posts_model.inc.php';
 require_once __DIR__ . '/includes/posts_view.inc.php';

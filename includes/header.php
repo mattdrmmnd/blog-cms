@@ -1,7 +1,6 @@
 <?php require_once __DIR__ . '/config.php'; ?>
     <header class="max-w-5xl mx-auto px-5 py-3 min-h-40 flex">
       
-    
       <div class="flex flex-col items-center sm:items-end w-full">
 
       <?php if (isset($_SESSION["user_id"])) { ?>
@@ -33,10 +32,20 @@
             </a>
           </div>
 
+          <?php $ariaCurrent = $ariaCurrent ?? 'page'; ?>
           <nav>
             <ul class="tracking-wider flex gap-x-6 gap-y-5 justify-center sm:justify-between flex-wrap">
-              <li><a href="<?= BASE_URL ?>post_previews_writing.php" class="hover:text-orange-200 transition-colors p-2 rounded-sm font-semibold">What I'm Writing</a></li>
-              <li><a href="<?= BASE_URL ?>post_previews_reading.php" class="hover:text-orange-200 transition-colors p-2 rounded-sm font-semibold">What I'm Reading</a></li>
+              <li>
+                <a href="<?= BASE_URL ?>post_previews_writing.php" <?= ($activePage ?? '') === 'writing' ? 'aria-current="' . $ariaCurrent . '"' : '' ?> class="hover:text-orange-200 transition-colors p-2 rounded-sm font-semibold aria-[current]:text-orange-200">
+                 What I'm Writing
+                </a>
+              </li>
+
+              <li>
+                <a href="<?= BASE_URL ?>post_previews_reading.php" <?= ($activePage ?? '') === 'reading' ? 'aria-current="' . $ariaCurrent . '"' : '' ?> class="hover:text-orange-200 transition-colors p-2 rounded-sm font-semibold aria-[current]:text-orange-200">
+                 What I'm Reading
+                </a>
+              </li>
             </ul>
           </nav>
         </div>

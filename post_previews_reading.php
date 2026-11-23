@@ -1,6 +1,8 @@
 <?php
 $pageTitle = 'Matt The Dev - What I\'m Reading';
+$activePage = 'reading';
 $bodyClass = 'flex flex-col min-h-screen font-inter text-white';
+
 require __DIR__ . '/includes/head.php';
 ?>
 
@@ -11,9 +13,10 @@ require __DIR__ . '/includes/head.php';
     <?php require __DIR__ . '/includes/header.php'; ?>
       
       <section class="flex flex-col max-w-2xl mx-auto mt-3 px-12 sm:px-5">
-              <div class="flex flex-col mt-4 m-auto pb-17">
 
-                  <h1 class="font-semibold text-lg sm:text-xl uppercase text-xlight-purple tracking-wider pb-5">What I'm reading</h1>
+        <h1 class="sr-only">What I'm reading</h1>
+           
+              <div class="flex flex-col mt-4 m-auto pb-17">
                   
                   <div class="">
                     <h2 class="font-semibold text-2xl sm:text-3xl">

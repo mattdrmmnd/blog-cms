@@ -1,5 +1,6 @@
 <?php
 $pageTitle = 'Matt The Dev - What I\'m Writing';
+$activePage = 'writing';
 $bodyClass = 'flex flex-col min-h-screen font-inter text-white';
 
 require_once __DIR__ . '/includes/dbh.inc.php';
@@ -17,13 +18,11 @@ require __DIR__ . '/includes/head.php';
   <!--Footer - flex-1 used in conjuction with body flex to push content downward-->
   <!--footer must be under this div-->
   <div class="flex-1 pb-8">
-
+  
     <?php require __DIR__ . '/includes/header.php'; ?>
-
-      <div class="flex flex-col max-w-2xl mx-auto mt-4 px-12 sm:px-5 ">
-        <h1 class="font-semibold text-lg sm:text-xl uppercase text-orange-200 tracking-wider mx-auto">What I'm writing</h1>
-      </div>
       
+      <h1 class="sr-only">What I'm writing</h1>
+
       <?php if ($posts): ?>
         <?php foreach ($posts as $post): ?>
         <section class="flex flex-col max-w-2xl mx-auto px-12 sm:px-5">
