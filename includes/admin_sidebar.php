@@ -30,6 +30,8 @@ $navLink = function (string $page) use ($activePage): string {
                                 Posts - Blog
                             </a>
                         </li>
+                        <?php // Hidden until these pages work. Change false to true to show them again ?>
+                        <?php if (false): ?>
                         <li>
                             <a <?= $navLink('posts_reading') ?>>
                                 Posts - Reading
@@ -50,6 +52,7 @@ $navLink = function (string $page) use ($activePage): string {
                                 Settings
                             </a>
                         </li>
+                        <?php endif; ?>
                     </ul>
                 </nav>
             </aside>

@@ -148,6 +148,7 @@ The old copy in `C:\Users\jerse\Documents\github\dynamic-blog` was deleted on 20
 ## Admin pages and the PHP backend
 
 - Apart from the login system and the blog post list, trash, restore, delete, pin and the new/edit form with its image upload, the admin pages are mockups of the CMS: dashboard, reading post list, new-post forms, featured posts (unlinked), users, access requests, request access and settings.
+- **Hidden for launch:** the admin sidebar links to Reading posts, Users, Access Requests and Settings (`admin_sidebar.php`), and the "or / Request access" link on `login.php` are wrapped in `<?php if (false): ?> … <?php endif; ?>` with a comment above. Change `false` to `true` to show one again once its page works. The pages themselves still exist; the Overview (dashboard) link stays visible. The public "What I'm Reading" nav link stays visible on purpose: `post_previews_reading.php` launches with its hardcoded markup until reading posts get a table.
 - Some links and form actions already point at `admin/` handlers that don't exist yet, so they 404: `posts_reading_delete.php`, `users_delete.php`, `requests_delete.php`, `posts_reading_edit.php?id=N`.
 - The other forms (the reading new-post form, users, featured posts, settings) submit back to their own `.php` page, and `request_access.php` uses `action=""`. None of them handle `$_POST` yet, and none have `csrf_field()` yet. `posts_blog_form.php` is the one that does, so use it as the model.
 - **Post forms** (`posts_blog_form.php`, `posts_reading_new.php`):

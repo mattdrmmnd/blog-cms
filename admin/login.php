@@ -67,6 +67,8 @@ require __DIR__ . '/../includes/head.php';
                     
                     <button class="bg-light-purple hover:bg-dark-purple transition-colors w-full p-2 pb-3 rounded-full cursor-pointer">Login</button>
 
+                    <?php // Hidden until request_access.php saves requests. Change false to true to show it again ?>
+                    <?php if (false): ?>
                     <div class="flex flex-row items-center gap-3" aria-hidden="true">
                         <span class="h-px flex-1 bg-gray-400/40"></span>
                         <span class="test-sm text-gray-400 tracking-wider">or</span>
@@ -74,6 +76,7 @@ require __DIR__ . '/../includes/head.php';
                     </div>
 
                     <a href="<?= BASE_URL ?>admin/request_access.php" class="flex flex-row m-auto text-sm tracking-wider mt-2 hover:text-light-purple">Request access</a>
+                    <?php endif; ?>
                 </form>
             </div>
 
