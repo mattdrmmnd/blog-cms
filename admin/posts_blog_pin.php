@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION["posts_message"] = 'Only published posts can be pinned.';
     
     } else {
-        $_SESSION["posts_message"] = 'Post not found.';
+        $_SESSION["posts_message"] = "Post isn't pinned.";
     }
 
     header('Location: ' . BASE_URL . 'admin/posts_blog.php');
