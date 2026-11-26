@@ -12,7 +12,7 @@ Built with help from Claude Code, which I used for explanations, planning and co
 
 **Stack:** Vite, Tailwind CSS v4, TypeScript, Figma. Backend: PHP (PDO) and MySQL (in progress).
 
-**Security:** prepared statements for every query, CSRF tokens on every form, passwords hashed with `password_hash()`, hardened session cookies with inactivity timeouts, and login attempt limiting.
+**Security:** prepared statements for every query, CSRF tokens on every form that saves data, passwords hashed with `password_hash()`, hardened session cookies with inactivity timeouts, and login attempt limiting.
 
 ### Status
 - [x] Visual design in Figma
@@ -21,7 +21,7 @@ Built with help from Claude Code, which I used for explanations, planning and co
 - [x] Admin / CMS frontend
 - [x] Apache htdocs migration / server-side preparation
 - [x] Login system and sessions (login, logout, protected admin pages, "Keep me logged in", inactivity timeouts, CSRF tokens, login attempt limiting)
-- [ ] Blog posts (in progress)
+- [x] Blog posts
   - [x] Database table
   - [x] Admin list with trash, restore and permanent delete
   - [x] New post saving (draft or publish), with a session keep-alive while typing
