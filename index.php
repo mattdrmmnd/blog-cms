@@ -156,7 +156,7 @@ require __DIR__ . '/includes/head.php';
       <section class="flex flex-col max-w-3xl mx-auto my-12 px-7 sm:px-5">
         
         <div class="px-12 sm:px-8 py-12 bg-black/50 rounded-xl">
-          <h2 class="font-semibold text-xl text-center text-white tracking-wider">Recent Posts</h2>
+          <h2 class="font-normal text-xl text-center text-white tracking-wider">Recent Posts</h2>
 
           <div class="flex flex-col max-w-2xl mx-auto mt-3 pb-8 px-12">
             <ul>
