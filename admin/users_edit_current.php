@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'ADMIN - Edit Current User';
-$bodyClass = 'flex flex-col min-h-screen font-inter text-white';
+$bodyClass = 'flex flex-col min-h-screen font-instrument text-white';
 $activePage = 'users';
 
 require_once __DIR__ . '/../includes/auth.inc.php';

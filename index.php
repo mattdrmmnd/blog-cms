@@ -3,7 +3,7 @@ $pageTitle = 'Matt Drummond - Full-Stack Developer | Matt The Dev';
 
 $pageDescription = 'Full-stack web developer Matt Drummond writes about building secure three-tier web apps with PHP, MySQL and TypeScript.';
 
-$bodyClass = 'home flex flex-col min-h-screen bg-cover bg-center bg-fixed font-inter text-white';
+$bodyClass = 'home flex flex-col min-h-screen bg-cover bg-center bg-fixed font-instrument text-white';
 
 require_once __DIR__ . '/includes/dbh.inc.php';
 require_once __DIR__ . '/includes/posts_model.inc.php';
@@ -26,9 +26,8 @@ require __DIR__ . '/includes/head.php';
       <div class="w-full max-w-[725px] min-h-full bg-black/50 rounded-xl p-12 text-center">
 
         <h1 class="font-semibold text-3xl sm:text-4xl tracking-wider">Matt Drummond</h1>
-        <p class="mt-5 font-extralight text-lg sm:text-2xl tracking-wider"><span class="text-xlight-purple">Full-Stack</span> Web Developer</p>
-        <!--<p class="mt-3 font-extralight text-lg sm:text-xl tracking-wider">Secure Back Ends <span class="text-light-purple" aria-hidden="true">&&</span> <span class="sr-only">and</span> User-Focused Front Ends</p>-->
-        <p class="mt-3 font-extralight text-lg sm:text-xl tracking-wider">Building Secure, <span class="text-xlight-purple">Database-Driven</span> Web Applications</p>
+        <p class="mt-5 font-normal text-lg sm:text-2xl tracking-wider"><span class="text-xlight-purple">Full-Stack</span> Web Developer</p>
+        <p class="mt-3 font-normal text-lg sm:text-xl tracking-wider">Building Secure, <span class="text-xlight-purple">Database-Driven</span> Web Applications</p>
 
       </div>
 
@@ -85,7 +84,7 @@ require __DIR__ . '/includes/head.php';
                   
 
                 <div class="w-full max-w-lg min-h-full border-l-[0.25px] border-solid border-orange-200 ps-4">
-                  <h2 class="font-bold text-xl tracking-wider pb-3 text-orange-200">Experience:</h2>
+                  <h2 class="font-normal text-xl tracking-wider pb-3 text-orange-200">Experience:</h2>
 
                   <div class="pb-5">
                     <p class="text-md sm:text-lg tracking-wider leading-10"><b>Full-Stack Web Developer, <a href="https://optmzd.net" class="text-xlight-purple hover:text-white" target="_blank" rel="noopener noreferrer">OPTMZD</a> (Owner)</b></p>
@@ -109,7 +108,7 @@ require __DIR__ . '/includes/head.php';
     <section class="flex flex-col max-w-3xl mx-auto px-7 sm:px-5">
 
             <div class="flex flex-col p-7 pt-12 pb-12 sm:pl-15 mt-12 bg-black/50 rounded-xl ">
-              <h2 class="font-semibold text-orange-200 text-xl sm:text-xl tracking-wider">
+              <h2 class="font-normal text-white text-xl sm:text-xl tracking-wider">
                   Skills
               </h2>
 

@@ -1,5 +1,5 @@
 <?php
-$bodyClass = 'flex flex-col min-h-screen font-inter text-white';
+$bodyClass = 'flex flex-col min-h-screen font-instrument text-white';
 
 $activePage = 'writing';
 $ariaCurrent = 'true';
@@ -39,7 +39,7 @@ require __DIR__ . '/includes/head.php';
       <div class="flex flex-col mt-4 m-auto pb-17">
 
         <div class="">
-          <h2 class="font-semibold text-2xl sm:text-large text-xlight-purple tracking-wider">
+          <h2 class="font-normal text-2xl sm:text-large text-xlight-purple tracking-wider">
               <?= htmlspecialchars($post["title"]) ?>
           </h2>
           <p class="text-sm mt-2 pb-1"><?= date('M j, Y', strtotime($post["published_at"])) ?></p>
@@ -47,7 +47,7 @@ require __DIR__ . '/includes/head.php';
         </div>
 
         <?php if ($post["featured_image"]): ?>
-          <img src="<?= BASE_URL ?>public/uploads/blog/<?= htmlspecialchars($post["featured_image"]) ?>" alt="<?= htmlspecialchars($post["featured_image_alt"] ?? '') ?>" />
+          <img src="<?= BASE_URL ?>public/uploads/blog/<?= htmlspecialchars($post["featured_image"]) ?>" alt="<?= htmlspecialchars($post["featured_image_alt"] ?? '') ?>" class="rounded-lg"/>
 
           <?php if ($post["featured_image_caption"]): ?>
             <p class="text-sm text-gray-400 mt-1 text-center">

@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'ADMIN - Blog Posts';
-$bodyClass = 'flex flex-col min-h-screen font-inter text-white';
+$bodyClass = 'flex flex-col min-h-screen font-instrument text-white';
 $activePage = 'posts_blog';
 
 require_once __DIR__ . '/../includes/auth.inc.php';
@@ -27,7 +27,7 @@ require __DIR__ . '/../includes/head.php';
                 <section class="flex items-center justify-between mb-5">
                     
                     <div class="flex flex-col tracking-wider">
-                        <h1 class="font-bold text-lg tracking-wider"><?= $isTrash ? 'Trash - Blog' : 'Posts - Blog' ?></h1>
+                        <h1 class="font-normal text-lg tracking-wider"><?= $isTrash ? 'Trash - Blog' : 'Posts - Blog' ?></h1>
 
                         <nav aria-label="Post views" class="flex gap-2 text-xs mt-1">
 
@@ -153,7 +153,7 @@ require __DIR__ . '/../includes/head.php';
                                         <?php endif; ?>
                                         
                                     </td>
-                                    <td class="py-3 pr-4"><?= htmlspecialchars($post['username'] ?? 'Unknown') ?></td>
+                                    <td class="py-3 pr-4"><?= htmlspecialchars($post['display_name'] ?? 'Unknown') ?></td>
                                     <td class="py-3">
                                         <p><?= htmlspecialchars(ucfirst($post['status'])) ?></p>
                                         <p class="text-xs text-gray-400"><?= date('Y/m/d \a\t g:i a', strtotime($post['created_at'])) ?></p>

@@ -13,7 +13,7 @@ body {
 
 @theme {
     --background-image-check: url('../public/images/check_mark.svg');
-    --font-inter: "Inter", sans-serif;
+    --font-instrument: "Instrument Sans", sans-serif;
     --breakpoint-xmid: 800px;
     --breakpoint-mid: 900px;
     --breakpoint-mid1000: 1000px;

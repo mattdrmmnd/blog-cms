@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'ADMIN - Dashboard';
-$bodyClass = 'flex flex-col min-h-screen font-inter text-white';
+$bodyClass = 'flex flex-col min-h-screen font-instrument text-white';
 $activePage = 'dashboard';
 
 require_once __DIR__ . '/../includes/login_view.inc.php';
@@ -23,7 +23,7 @@ require __DIR__ . '/../includes/head.php';
             <main class="flex-1 min-w-0 mt-5">
 
                 <div>
-                    <h1 class="font-bold text-lg tracking-wider mb-4">
+                    <h1 class="font-normal text-lg tracking-wider mb-4">
                         Welcome Back <span class="text-orange-200"><?= htmlspecialchars($_SESSION["user_username"]) ?></span> !
                     </h1>
                 </div>

@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Matt The Dev - What I\'m Reading';
 $activePage = 'reading';
-$bodyClass = 'flex flex-col min-h-screen font-inter text-white';
+$bodyClass = 'flex flex-col min-h-screen font-instrument text-white';
 
 require __DIR__ . '/includes/head.php';
 ?>

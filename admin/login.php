@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 $pageTitle = 'ADMIN - Login';
-$bodyClass = 'home flex flex-col min-h-screen bg-cover bg-center bg-fixed font-inter text-white';
+$bodyClass = 'home flex flex-col min-h-screen bg-cover bg-center bg-fixed font-instrument text-white';
 $headerMessage = 'Please LOGIN to get started !';
 
 require_once __DIR__ . '/../includes/config.php';

@@ -1,7 +1,7 @@
 <?php
 $pageTitle = 'Matt The Dev - What I\'m Writing';
 $activePage = 'writing';
-$bodyClass = 'flex flex-col min-h-screen font-inter text-white';
+$bodyClass = 'flex flex-col min-h-screen font-instrument text-white';
 
 require_once __DIR__ . '/includes/dbh.inc.php';
 require_once __DIR__ . '/includes/posts_model.inc.php';
@@ -29,14 +29,14 @@ require __DIR__ . '/includes/head.php';
           <div class="flex flex-col pt-10 pb-10 border-b-[0.25px] border-solid border-gray-800 [section:last-of-type_&]:border-b-0">
 
             <div class="">
-              <h2 class="font-semibold text-xl text-xlight-purple hover:text-white">
+              <h2 class="font-normal text-xl text-xlight-purple hover:text-white tracking-wider">
                 <a href="<?= BASE_URL ?>post_writing.php?id=<?= $post["id"] ?>"><?= htmlspecialchars($post["title"]) ?></a>
               </h2>
               <p class="text-sm mt-2"><?= date('M j, Y', strtotime($post["published_at"])) ?></p>
             </div>
 
-            <p class="text-base mt-4 max-w-lg">
-              <?= htmlspecialchars(post_excerpt($post["body"], 200)) ?> 
+            <p class="text-base mt-4 max-w-lg tracking-wider">
+              <?= htmlspecialchars(post_excerpt($post["body"], 185)) ?> 
             </p>
             <a href="<?= BASE_URL ?>post_writing.php?id=<?= $post["id"] ?>" aria-label="More: <?= htmlspecialchars($post["title"]) ?>" class="text-xlight-purple hover:text-white mt-5 self-start">More</a>
           </div>

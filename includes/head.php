@@ -8,7 +8,7 @@ require_once __DIR__ . '/config.php';
 // Used to set title and body on pages that forget to do it
 $pageTitle = $pageTitle ?? 'Matt The Dev';
 $pageDescription = $pageDescription ?? ''; // Google will write the fallback
-$bodyClass = $bodyClass ?? 'flex flex-col min-h-screen font-inter text-white';
+$bodyClass = $bodyClass ?? 'flex flex-col min-h-screen font-instrument text-white';
 
 // Resumes a session only when the browser has one
 
@@ -28,7 +28,7 @@ if (isset($_COOKIE[session_name()])) //PHPSESSID
     <meta name="color-scheme" content="dark">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <!--Material Symbols: add new icon names to icon_names, comma-separated and in alphabetical order-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=call_made,keep" />
 
