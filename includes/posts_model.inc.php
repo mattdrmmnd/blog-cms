@@ -6,7 +6,7 @@ function get_blog_posts(object $pdo, bool $trashed = false): array
 {
     $condition = $trashed ? 'IS NOT NULL' : 'IS NULL';
     
-    $query = "SELECT blog_posts.id, title, blog_posts.created_at, blog_posts.trashed_at, pinned_at, users.username, status FROM blog_posts LEFT JOIN  users ON users.id = blog_posts.user_id WHERE blog_posts.trashed_at $condition ORDER BY blog_posts.created_at DESC;";
+    $query = "SELECT blog_posts.id, title, blog_posts.created_at, blog_posts.trashed_at, pinned_at, users.display_name, status FROM blog_posts LEFT JOIN  users ON users.id = blog_posts.user_id WHERE blog_posts.trashed_at $condition ORDER BY blog_posts.created_at DESC;";
     
     $stmt = $pdo->query($query);
 
