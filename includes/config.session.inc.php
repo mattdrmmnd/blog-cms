@@ -38,7 +38,7 @@ if (!isset($_SESSION["last_regeneration"]) || time() - $_SESSION["last_regenerat
     }
 
 
-// Refer to login.inc.php
+// Refer to login_handler.php
 
 if (isset($_SESSION["user_id"])) {
 

@@ -1,28 +1,30 @@
 <?php
 
+require_once __DIR__ . '/../includes/config.php';
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = trim($_POST["username"]); // Trim counts whitespace as empty
     $pwd = $_POST["pwd"];
     
 } else {
-    header("Location: ../admin/login.php");
+    header('Location: ' . BASE_URL . 'admin/login.php');
     die();
 }
 
 try {
     // order does matter
-    require_once 'dbh.inc.php';
-    require_once 'login_model.inc.php';
-    require_once 'login_contr.inc.php';
+    require_once __DIR__ . '/../includes/dbh.inc.php';
+    require_once __DIR__ . '/../includes/login_model.inc.php';
+    require_once __DIR__ . '/../includes/login_contr.inc.php';
 
     // SESSION
-    require_once 'config.session.inc.php';
+    require_once __DIR__ . '/../includes/config.session.inc.php';
 
     $ip = $_SERVER["REMOTE_ADDR"];
 
     if (!csrf_is_valid()) {
         $_SESSION["errors_login"] = ["csrf" => "Your session expired. Please try again."];
-        header("Location: ../admin/login.php");
+        header('Location: ' . BASE_URL . 'admin/login.php');
 
         die();
     }
@@ -41,7 +43,7 @@ try {
     if (recent_attempts($pdo, $ip, $username) >= 5) {
         $_SESSION["errors_login"] = ["locked" => "Too many login attempts. Please try again in 15 minutes."];
 
-        header("Location: ../admin/login.php");
+        header('Location: ' . BASE_URL . 'admin/login.php');
         die();
     }
 
@@ -66,7 +68,7 @@ try {
     if ($errors) {
         $_SESSION["errors_login"] = $errors;
 
-        header("Location: ../admin/login.php");
+        header('Location: ' . BASE_URL . 'admin/login.php');
         die();
 
     } // ----> No ERROR HANDLERS between this line and the Success Block  
@@ -88,7 +90,7 @@ try {
     
     clear_attempts($pdo, $ip);
 
-    header("Location: ../admin/dashboard.php");
+    header('Location: ' . BASE_URL . 'admin/dashboard.php');
     die();
 
     

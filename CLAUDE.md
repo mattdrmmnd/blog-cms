@@ -54,8 +54,8 @@ The old copy in `C:\Users\jerse\Documents\github\dynamic-blog` was deleted on 20
   - `login_attempts`: `id`, `ip` (`VARCHAR(45)`), `username`, `attempted_at` (defaults to `CURRENT_TIMESTAMP`), with an index on `(ip, username, attempted_at)`. One row per failed login.
 - **`includes/dbh.inc.php`** connects with PDO (`utf8mb4`, exceptions on, `FETCH_ASSOC` by default) and creates `$pdo`. It holds the credentials, so it's **gitignored**. `dbh.inc.example.php` is the committed copy with blank values.
 - **Login** follows a tutorial-style MVC split:
-  - `admin/login.php` is the form. It logs in by **username**, with fields `username`, `pwd` and the `remember` checkbox, and posts to `includes/login.inc.php`. It redirects to the dashboard if already logged in.
-  - `login.inc.php` is the handler, in this order:
+  - `admin/login.php` is the form. It logs in by **username**, with fields `username`, `pwd` and the `remember` checkbox, and posts to `admin/login_handler.php`. It redirects to the dashboard if already logged in.
+  - `admin/login_handler.php` is the handler (it moved out of `includes/`, which browsers can't open), in this order:
     1. POST only, then the CSRF check.
     2. The empty-field check.
     3. **The lockout check:** 5 or more failed attempts from this IP for this username in the last 15 minutes redirects with "Too many login attempts" before the password is checked.
@@ -78,7 +78,7 @@ The old copy in `C:\Users\jerse\Documents\github\dynamic-blog` was deleted on 20
 - **`includes/csrf.inc.php`** (loaded by `config.session.inc.php`) has three functions:
   - `csrf_field()` prints the hidden token input. Put it in every POST form.
   - `csrf_verify()` stops with a 403 on a bad token. Call it at the top of every POST handler.
-  - `csrf_is_valid()` returns true or false. `login.inc.php` uses it so it can redirect back with a message instead.
+  - `csrf_is_valid()` returns true or false. `login_handler.php` uses it so it can redirect back with a message instead.
 - Always follow `header('Location: …')` with `die()` or `exit`.
 
 ## Blog posts

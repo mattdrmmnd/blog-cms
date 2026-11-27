@@ -11,8 +11,8 @@ require_once __DIR__ . '/../includes/login_view.inc.php';
 
 if (isset($_SESSION["user_id"])) {
     
-        header('Location: ' . BASE_URL . 'admin/dashboard.php');
-        exit;
+    header('Location: ' . BASE_URL . 'admin/dashboard.php');
+    exit;
     }   
 
 require __DIR__ . '/../includes/head.php';
@@ -34,7 +34,7 @@ require __DIR__ . '/../includes/head.php';
             <div class="flex flex-col gap-3 items-center">
                 <h1 class="font-normal text-lg sm:text-lg tracking-wider">ADMIN Login</h1>
 
-                <form action="<?= BASE_URL ?>includes/login.inc.php" method="post" class="flex flex-col gap-4 pb-3 tracking-wider">
+                <form action="<?= BASE_URL ?>admin/login_handler.php" method="post" class="flex flex-col gap-4 pb-3 tracking-wider">
                     
                     <?php csrf_field(); ?>
 
