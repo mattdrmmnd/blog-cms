@@ -65,7 +65,7 @@ require __DIR__ . '/../includes/head.php';
 
                     </div>
                     
-                    <button class="bg-light-purple hover:bg-dark-purple transition-colors w-full p-2 pb-3 rounded-full cursor-pointer">Login</button>
+                    <button class="bg-dark-purple hover:bg-xlight-purple transition-colors w-full p-2 pb-3 rounded-full cursor-pointer">Login</button>
 
                     <?php // Hidden until request_access.php saves requests. Change false to true to show it again ?>
                     <?php if (false): ?>

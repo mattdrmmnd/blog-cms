@@ -95,7 +95,7 @@ require __DIR__ . '/../includes/head.php';
                                                 <?php csrf_field(); ?>
 
                                                 <input type="hidden" name="id" value="<?= htmlspecialchars($post['id']) ?>">
-                                                <button type="submit" class="text-green-400 hover:text-white transition-colors" aria-label="Restore: <?= htmlspecialchars($post['title']) ?>">Restore</button>
+                                                <button type="submit" class="text-xlight-purple hover:text-white transition-colors cursor-pointer" aria-label="Restore: <?= htmlspecialchars($post['title']) ?>">Restore</button>
 
                                             </form>
 
@@ -106,18 +106,15 @@ require __DIR__ . '/../includes/head.php';
                                                 <?php csrf_field(); ?>
 
                                                 <input type="hidden" name="id" value="<?= htmlspecialchars($post['id']) ?>">
-                                                <button type="submit" data-confirm="Are you sure you want to DELETE this post?" class="text-red-300 hover:text-white transition-colors" aria-label="Delete permanently: <?= htmlspecialchars($post['title']) ?>">Delete</button>
+                                                <button type="submit" data-confirm="Are you sure you want to DELETE this post?" class="text-orange-200 hover:text-white transition-colors cursor-pointer" aria-label="Delete permanently: <?= htmlspecialchars($post['title']) ?>">Delete</button>
 
                                             </form>
-
-                                            
-
                                         </div>    
 
                                         <?php else: ?>
 
                                         <div class="flex gap-2 text-xs mt-1">
-                                            <a href="<?= BASE_URL ?>admin/posts_blog_form.php?id=<?= htmlspecialchars($post['id']) ?>" class="text-light-purple hover:text-white transition-colors">Edit</a>
+                                            <a href="<?= BASE_URL ?>admin/posts_blog_form.php?id=<?= htmlspecialchars($post['id']) ?>" class="text-xlight-purple hover:text-white transition-colors">Edit</a>
 
                                             <span aria-hidden="true" class="text-gray-500">|</span>
 
@@ -126,7 +123,7 @@ require __DIR__ . '/../includes/head.php';
                                                 <?php csrf_field(); ?>
 
                                                 <input type="hidden" name="id" value="<?= htmlspecialchars($post['id']) ?>">
-                                                <button type="submit" class="text-red-300 hover:text-white transition-colors" aria-label="Trash: <?= htmlspecialchars($post['title']) ?>">Trash</button>
+                                                <button type="submit" class="text-white hover:text-red-300 transition-colors cursor-pointer" aria-label="Trash: <?= htmlspecialchars($post['title']) ?>">Trash</button>
 
                                             </form>
 
@@ -143,7 +140,10 @@ require __DIR__ . '/../includes/head.php';
                                                     <input type="hidden" name="action" value="<?= $post["pinned_at"] ? 'unpin' : 'pin' ?>">
                                                     <input type="hidden" name="id" value="<?= $post["id"] ?>">
 
-                                                    <button type="submit" class="text-gray-400 hover:text-white transition-colors" aria-label="<?= $post["pinned_at"] ? 'Unpin' : 'Pin' ?>: <?= htmlspecialchars($post['title']) ?>"><?= $post["pinned_at"] ? 'Unpin' : 'Pin' ?></button>
+                                                    <button type="submit" class="text-orange-200 hover:text-white transition-colors cursor-pointer" aria-label="<?= $post["pinned_at"] ? 'Unpin' : 'Set pin' ?>: <?= htmlspecialchars($post['title']) ?>">
+
+                                                    <?= $post["pinned_at"] ? '<span class="material-symbols-outlined" aria-hidden="true">keep</span>' : 'Set pin' ?>
+                                                    </button>
 
                                                 </form>
                                             <?php endif; ?>
@@ -155,7 +155,7 @@ require __DIR__ . '/../includes/head.php';
                                     </td>
                                     <td class="py-3 pr-4"><?= htmlspecialchars($post['display_name'] ?? 'Unknown') ?></td>
                                     <td class="py-3">
-                                        <p><?= htmlspecialchars(ucfirst($post['status'])) ?></p>
+                                        <p class="text-orange-100"><?= htmlspecialchars(ucfirst($post['status'])) ?></p>
                                         <p class="text-xs text-gray-400"><?= date('Y/m/d \a\t g:i a', strtotime($post['created_at'])) ?></p>
                                     </td>
                                 </tr>

@@ -169,7 +169,7 @@ require __DIR__ . '/includes/head.php';
                     <div class="flex flex-row gap-1">
 
                       <?php if ($recentPost["pinned_at"]): ?>
-                      <span class="material-symbols-outlined" aria-hidden="true">
+                      <span class="material-symbols-outlined text-orange-200" aria-hidden="true">
                         keep
                       </span>
                       <span class="sr-only">Pinned:</span>

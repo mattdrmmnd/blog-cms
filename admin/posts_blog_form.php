@@ -198,7 +198,7 @@ require __DIR__ . '/../includes/head.php';
             <main class="flex-1 min-w-0 mt-5">
 
                 <div class="flex items-center justify-between mb-5">
-                    <h1 class="font-bold text-lg tracking-wider"><?= $isEdit ? 'Edit' : 'New' ?> - Blog Post</h1>
+                    <h1 class="font-normal text-lg tracking-wider"><?= $isEdit ? 'Edit' : 'New' ?> - Blog Post</h1>
                     <a href="<?= BASE_URL ?>admin/posts_blog.php" class="inline-flex items-center gap-1 bg-dark-purple hover:bg-light-purple/80 tracking-wider transition-colors text-sm font-semibold px-4 py-2 rounded-sm">
                         <span aria-hidden="true">x</span> Close
                     </a>

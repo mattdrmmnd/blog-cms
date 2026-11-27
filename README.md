@@ -87,11 +87,3 @@ width="700">
 
 <img src="public/images/admin_posts_blog_edit.jpg" alt="Admin blog post form edit" width="700">
 
-&nbsp;
-
-<img src="public/images/admin_edit_user.jpg" alt="Admin edit user page" width="700">
-
-&nbsp;
-
-<img src="public/images/admin_settings.jpg" alt="Admin settings page" width="700">
-

@@ -38,7 +38,7 @@ require __DIR__ . '/includes/head.php';
             <p class="text-base mt-4 max-w-lg tracking-wider">
               <?= htmlspecialchars(post_excerpt($post["body"], 185)) ?> 
             </p>
-            <a href="<?= BASE_URL ?>post_writing.php?id=<?= $post["id"] ?>" aria-label="More: <?= htmlspecialchars($post["title"]) ?>" class="text-xlight-purple hover:text-white mt-5 self-start">More</a>
+            <a href="<?= BASE_URL ?>post_writing.php?id=<?= $post["id"] ?>" aria-label="More: <?= htmlspecialchars($post["title"]) ?>" class="text-xlight-purple hover:text-white mt-5 self-start tracking-wider">More</a>
           </div>
         </section>
         <?php endforeach; ?>

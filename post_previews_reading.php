@@ -19,7 +19,7 @@ require __DIR__ . '/includes/head.php';
               <div class="flex flex-col mt-4 m-auto pb-17">
                   
                   <div class="">
-                    <h2 class="font-semibold text-xl text-xlight-purple hover:text-white tracking-wider">
+                    <h2 class="font-normal text-xl text-xlight-purple hover:text-white tracking-wider">
                       <a href="https://abraham-hicks.com/the-art-of-allowing-book/" target="_blank">
                       <span class="material-symbols-outlined text-white">
                         call_made
@@ -42,7 +42,7 @@ require __DIR__ . '/includes/head.php';
                   </p>
                   
                   <div class="flex flex-row gap-2 justify-end items-center mt-5">
-                     <a href="https://abraham-hicks.com/the-art-of-allowing-book/"  aria-label="Read more: The Art of Allowing" target="_blank" class="flex text-xlight-purple hover:text-white gap-1">Read more 
+                     <a href="https://abraham-hicks.com/the-art-of-allowing-book/"  aria-label="Read more: The Art of Allowing" target="_blank" class="flex text-xlight-purple hover:text-white gap-1 tracking-wider">Read more 
                     <span class="material-symbols-outlined text-white">
                         call_made
                     </span> 
