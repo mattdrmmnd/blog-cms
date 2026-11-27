@@ -53,13 +53,16 @@ require __DIR__ . '/includes/head.php';
     </section>
 
     <section class="max-w-3xl mx-auto mt-12 px-7 sm:px-5">
-      <div class="bg-black/50 rounded-xl p-7 sm:p-12">
+      <div class="flex flex-col bg-black/50 rounded-xl p-7 sm:p-12">
         <h2 class="font-semibold text-md text-white tracking-wider">GitHub Activity</h2>
-        <div class="mt-5 overflow-x-auto" dir="rtl" role="region" aria-label="GitHub contribution graph">
+        <div class="mt-5 pb-6 overflow-x-auto border-b-[0.25px] border-solid border-gray-800" dir="rtl" role="region" aria-label="GitHub contribution graph">
           <a href="https://github.com/mattdrmmnd" target="_blank" rel="noopener noreferrer" class="block hover:opacity-80">
             <img src="https://ghchart.rshah.org/3E0058/mattdrmmnd" alt="Matt's GitHub contribution graph. Visit Matt on GitHub" class="min-w-[600px] w-full h-auto" />
           </a>
         </div>
+        <a href="https://github.com/mattdrmmnd/blog-cms" target="_blank" rel="noopener noreferrer" class="self-center mt-4 text-xlight-purple hover:text-white tracking-wider">
+          <span class="font-semibold text-white">Currently hacking on:</span> blog-cms
+        </a>
       </div>
     </section>
 
