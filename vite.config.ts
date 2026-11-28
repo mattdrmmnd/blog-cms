@@ -9,8 +9,9 @@ export default defineConfig(({ command }) => ({
   plugins: [
     tailwindcss(),
   ],
-  // Asset URLs inside the built CSS (like the hero background) point at build/
-  base: command === 'build' ? '/blog-cms/build/' : '/',
+  // './' makes asset URLs inside the built CSS relative to build/main.css,
+  // so the same build works at /blog-cms/ on localhost and at / on the live site
+  base: command === 'build' ? './' : '/',
   // PHP pages link to public/ directly, so don't copy it into build/
   publicDir: command === 'build' ? false : 'public',
   build: {
